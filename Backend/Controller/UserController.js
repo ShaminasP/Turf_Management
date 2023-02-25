@@ -25,7 +25,9 @@ export const signUp = async (req, res) => {
 };
 
 export const checkOtp = (req, res) => {
-  const { username, email, mobile, password, otp } = req.body;
+  const { name, email, mobile, password, otp } = req.body;
+  console.log('sss');
+  console.log(req.body)
 
   try {
     veryfySms(mobile, otp).then(async (response) => {
@@ -33,7 +35,7 @@ export const checkOtp = (req, res) => {
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(password, salt);
       const newUser = new UserModel({
-        username,
+        name,
         email,
         password: hashedPassword,
         mobile,
