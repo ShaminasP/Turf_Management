@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OTP } from "../../API/UserAuth";
 
 function OtpForm({ formData }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const Navigate = useNavigate();
 
   const onOtpChange = (e, index) => {
     const updatedOtp = [...otp];
@@ -19,8 +21,8 @@ function OtpForm({ formData }) {
     const otpJoined = otp.join("");
     formData.otp = otpJoined;
     OTP(formData).then(() => {
-
-        setOtp(['','','','','',''])
+      setOtp(["", "", "", "", "", ""]);
+      Navigate('/login');
     });
   };
 

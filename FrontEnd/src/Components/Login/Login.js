@@ -1,7 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginForm } from "../../API/UserAuth";
 
 function Login() {
+  const Navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    LoginForm(formData).then(() => {
+      Navigate("/");
+    });
+  };
+
   return (
     <>
       <div className="absolute bg-black w-full h-screen top-0 left-0 opacity-80 z-[-1]" />
@@ -13,15 +29,17 @@ function Login() {
               Login to access your account
             </p>
           </div>
-          <form action="" className="space-y-12 ng- ng- ng-">
+          <form onSubmit={handleSubmit} className="space-y-12 ng- ng- ng-">
             <div className="space-y-4">
               <div>
-                <label for="email" className="block mb-2 text-sm">
+                <label htmlfor="email" className="block mb-2 text-sm">
                   Email address
                 </label>
                 <input
                   type="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   id="email"
                   placeholder="leroy@jenkins.com"
                   className="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100"
@@ -38,6 +56,8 @@ function Login() {
                   name="password"
                   id="password"
                   placeholder="*****"
+                  value={formData.password}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md border-gray-700 bg-gray-900 text-gray-100"
                 />
               </div>
@@ -45,7 +65,7 @@ function Login() {
             <div className="space-y-2">
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full px-8 py-3 font-semibold rounded-md bg-violet-400 text-gray-900"
                 >
                   Sign in

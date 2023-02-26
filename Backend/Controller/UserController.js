@@ -49,6 +49,7 @@ export const checkOtp = (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log('hiuhi')
   const { email, password } = req.body;
   try {
     console.log("working");
@@ -63,3 +64,4 @@ export const login = async (req, res) => {
     console.log(error);
   }
 };
+ 
