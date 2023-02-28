@@ -18,7 +18,6 @@ export const OTP = (data) => {
 
 export const LoginForm = (data) => {
   return new Promise((resolve, reject) => {
-    alert("login");
     Axiosuser.post("/login", data)
       .then(() => {
         console.log("login success");

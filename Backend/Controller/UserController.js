@@ -2,14 +2,11 @@ import UserModel from "../Model/UserModel.js";
 import { sendSms, veryfySms } from "../Helpers/Twilio.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from 'dotenv'
-dotenv.config()
-// console.log(process.env.JWT_SECRET)
-import { response } from "express";
+import dotenv from "dotenv";
+dotenv.config();
 export const signUp = async (req, res) => {
   try {
-    console.log(req.body);
-    const { username, email, mobile, password } = req.body;
+    const { email, mobile } = req.body;
     const user = await UserModel.findOne({ email: email });
     if (user) return res.status(409).json({ message: "User already exists" });
     const userMobile = await UserModel.findOne({ mobile: mobile });
@@ -26,8 +23,6 @@ export const signUp = async (req, res) => {
 
 export const checkOtp = (req, res) => {
   const { name, email, mobile, password, otp } = req.body;
-  console.log('sss');
-  console.log(req.body)
 
   try {
     veryfySms(mobile, otp).then(async (response) => {
@@ -49,7 +44,6 @@ export const checkOtp = (req, res) => {
 };
 
 export const login = async (req, res) => {
-  console.log('hiuhi')
   const { email, password } = req.body;
   try {
     console.log("working");
@@ -57,11 +51,11 @@ export const login = async (req, res) => {
     if (!user) return res.status(401).json({ message: "Invalid email" });
     const compare = await bcrypt.compare(password, user.password);
     if (!compare) return res.status(401).json({ message: "Invalid password" });
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' })
-    res.header("auth-token", token).send(token)
-
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+    res.json({ token });
   } catch (error) {
     console.log(error);
   }
 };
- 
