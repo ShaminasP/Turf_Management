@@ -27,7 +27,8 @@ export const checkOtp = (req, res) => {
   try {
     veryfySms(mobile, otp).then(async (response) => {
       if (!response) return res.status(401).json({ message: "Invalid OTP " });
-      const salt = await bcrypt.genSalt();
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
       const hashedPassword = await bcrypt.hash(password, salt);
       const newUser = new UserModel({
         name,

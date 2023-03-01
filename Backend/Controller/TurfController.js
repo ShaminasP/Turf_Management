@@ -4,7 +4,7 @@ import TurfModel from "../Model/TurfModel.js";
 
 export const turf_register = async (req, res) => {
   const {
-    turfName,
+    name,
     email,
     place,
     district,
@@ -15,12 +15,13 @@ export const turf_register = async (req, res) => {
     fee,
     password,
   } = req.body;
-
+  console.log(req.body);
+  const saltRounds = 10;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
   try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
     const newTurf = new TurfModel({
-      turfName,
+      turfName: name,
       email,
       password: hashedPassword,
       location: [{ district, state, place }],

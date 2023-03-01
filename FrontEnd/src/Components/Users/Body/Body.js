@@ -1,5 +1,5 @@
 import React from 'react'
-import img from '../../assets/home.png'
+import img from '../../../assets/home.png'
 import Button from '../Button/Button'
 function Body() {
   return (

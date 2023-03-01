@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { SignupForm } from "../../API/UserAuth";
+import { SignupForm } from "../../../API/UserAuth";
 import OtpForm from "../OtpForm/OtpForm";
 const initialState = {
   name: "",

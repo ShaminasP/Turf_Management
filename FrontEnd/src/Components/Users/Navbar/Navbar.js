@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
   let Links = [
     { name: "HOME", link: "/" },
     { name: "BOOK TURF", link: "/" },
-    { name: "RGISTER TURF", link: "/" },
-    { name: "LOGIN", link: "/login" },
+    { name: "RGISTER TURF", link: "/turf" },
+    { name: "LOGIN", link: props.loginlink },
   ];
   let [open, setOpen] = useState(false);
   return (
@@ -61,7 +61,7 @@ const Navbar = () => {
             {Links.map((link) => (
               <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
                 <Link to={link.link}
-                  // onClick={() => setOpen(false)}
+    
                   className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
                 >
                   {link.name}

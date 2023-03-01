@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginForm } from "../../API/UserAuth";
+import { turfLogin } from "../../../API/TurfAuth";
 
 function Login() {
   const Navigate = useNavigate();
@@ -13,8 +13,8 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    LoginForm(formData).then(() => {
-      Navigate("/");
+    turfLogin(formData).then(() => {
+      console.log("Turf Login Success");
     });
   };
 
@@ -24,9 +24,9 @@ function Login() {
       <div className="flex justify-center items-center h-screen z-10">
         <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-900 text-gray-100">
           <div className="mb-8 text-center">
-            <h1 className="my-3 text-4xl font-bold">Login</h1>
+            <h1 className="my-3 text-4xl font-bold">Signin</h1>
             <p className="text-sm text-gray-400">
-              Login to access your account
+              Sign in to access your account
             </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-12 ng- ng- ng-">

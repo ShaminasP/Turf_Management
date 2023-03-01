@@ -27,7 +27,7 @@ const turfSchema = new mongoose.Schema({
       },
       state: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
   ],
@@ -39,11 +39,11 @@ const turfSchema = new mongoose.Schema({
     {
       openingHours: {
         type: String,
-        required: true,
+        // required: true,
       },
       closingHours: {
         type: String,
-        required: true,
+        // required: true,
       },
     },
   ],
@@ -55,7 +55,7 @@ const turfSchema = new mongoose.Schema({
   },
   fee: {
     type: String,
-    required: true,
+    // required: true,
   },
   events: {
     eventName: {

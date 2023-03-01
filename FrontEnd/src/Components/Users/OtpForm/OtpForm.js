@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OTP } from "../../API/UserAuth";
+import { OTP } from "../../../API/UserAuth";
 
 function OtpForm({ formData }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);

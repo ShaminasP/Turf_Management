@@ -1,5 +1,5 @@
 
-import Signup from '../Components/Signup/Signup'
+import Signup from '../../Components/Users/Signup/Signup'
 
 function SignupPage() {
   return (
