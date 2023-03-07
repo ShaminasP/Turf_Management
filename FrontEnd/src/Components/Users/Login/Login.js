@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginForm } from "../../../API/UserAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "../../../Store/userSlice";
 
 function Login() {
+
   const Navigate = useNavigate();
+  const Dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    LoginForm(formData).then(() => {
+    LoginForm(formData).then((data) => {
+      token = data.data.token;
+      Dispatch(setToken(token));
       Navigate("/");
     });
   };
@@ -47,7 +52,7 @@ function Login() {
               </div>
               <div>
                 <div className="flex justify-between mb-2">
-                  <label for="password" className="text-sm">
+                  <label htmlFor="email" className="block mb-2 text-sm">
                     Password
                   </label>
                 </div>

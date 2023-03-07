@@ -75,7 +75,7 @@ function Login() {
                 Don't have an account yet?
                 <Link
                   rel="noopener noreferrer"
-                  to={"/signup"}
+                  // to={"/signup"}
                   className="hover:underline text-violet-400"
                 >
                   Sign up

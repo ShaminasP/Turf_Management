@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {useSelector} from "react-redux"
 
 const Navbar = (props) => {
+ const isUser=Boolean(useSelector((state)=>state.user.token));
+  
   let Links = [
     { name: "HOME", link: "/" },
     { name: "BOOK TURF", link: "/" },

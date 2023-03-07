@@ -16,6 +16,8 @@ export const turf_register = async (req, res) => {
     password,
   } = req.body;
   console.log(req.body);
+  console.log(req.files);
+  const img = req.files;
   const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -28,6 +30,7 @@ export const turf_register = async (req, res) => {
       contactNumber: mobile,
       workingHours: [{ openingHours, closingHours }],
       fee,
+      images: img,
     });
 
     await newTurf.save();
@@ -59,5 +62,20 @@ export const turf_login = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const toViewTurfs = async (req, res) => {
+  try {
+    await TurfModel.find()
+      .then((turfs) =>{
+        console.log(turfs)
+        res.status(200).json({turfs})})
+      .catch((err) => {
+        err.message;
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "server error" });
   }
 };
