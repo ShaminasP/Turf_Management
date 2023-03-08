@@ -15,22 +15,26 @@ const turfSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  location: [
-    {
-      place: {
-        type: String,
-        required: true,
-      },
-      district: {
-        type: String,
-        required: true,
-      },
-      state: {
-        type: String,
-        // required: true,
-      },
-    },
-  ],
+  // location: [
+  //   {
+  //     place: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     district: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     state: {
+  //       type: String,
+  //       // required: true,
+  //     },
+  //   },
+  // ],
+  location: {
+    type: String,
+    required: true,
+  },
   contactNumber: {
     type: Number,
     required: true,

@@ -1,35 +1,57 @@
 import { useState } from "react";
 import { turfRegister } from "../../../API/TurfAuth";
+import { Location_Search } from "../../../API/Mapbox";
 const RegistrationForm = () => {
   const intialState = {
     name: "",
     email: "",
     mobile: "",
-    place: "",
-    district: "",
-    state: "",
+    // place: "",
+    // district: "",
+    // state: "",
+    location: "",
     password: "",
     image: "",
   };
 
-
-
   const [formData, setFormData] = useState(intialState);
+  const [location, setLocation] = useState("");
+  const [selectLocation, setSelectLocation] = useState({});
+  const [suggestion, setSuggestion] = useState([]);
   const inputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-
+  const inputLocation = async (e) => {
+    const result = await Location_Search(location);
+    setSuggestion(result.map((f) => f.place_name));
+  };
 
   const handleImage = (event) => {
     const img = event.target.files[0];
-    setFormData({...formData, image: img });
+    setFormData({ ...formData, image: img });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     turfRegister(formData);
-    };
+  };
+
+  const handlePlace = (suggestion) => {
+    setLocation(suggestion)
+    setFormData({ ...formData, location: suggestion });
+    // console.log(formData);
+  };
+  console.log(location);
+
+
+const inputLocationChange = (event) => {
+  console.log(event.target.value);
+  setLocation(event.target.value)
+}
+
+
+
   return (
     <>
       <div className="flex items-center justify-center p-12 bg-white">
@@ -91,48 +113,32 @@ const RegistrationForm = () => {
                 htmlFor="place"
                 className="mb-3 block text-base font-medium text-[#07074D]"
               >
-                Place
+                Location
               </label>
               <input
                 type="text"
                 name="place"
                 id="place"
-                value={formData.place}
-                onChange={inputChange}
+                value={location}
+                onChange={inputLocation}
+                onInput={inputLocationChange}
+
                 placeholder="Type your place"
                 className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
-            </div>{" "}
-            <div className="mb-5">
-              <label
-                htmlFor="District"
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
-                District
-              </label>
-              <input
-                name="district"
-                id="District"
-                value={formData.district}
-                onChange={inputChange}
-                placeholder="Type your District"
-                className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
-            </div>{" "} <div className="mb-5">
-              <label
-                htmlFor="District"
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
-                State
-              </label>
-              <input
-                name="state"
-                id="state"
-                value={formData.state}
-                onChange={inputChange}
-                placeholder="Type your District"
-                className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
+              <ul className="mt-4 w-full  bg-white rounded-md">
+                {suggestion.map((suggest, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handlePlace(suggest)}
+                    className="px-3 py-2 cursor-pointer border-b-2 hover:bg-gray-200"
+                  >
+                    <span className="text-lg font-bold">{suggestion}</span>{" "}
+                    <br />
+                    {/* {suggestion} */}
+                  </li>
+                ))}
+              </ul>
             </div>{" "}
             <div className="mb-5">
               <label

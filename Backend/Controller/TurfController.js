@@ -6,18 +6,12 @@ export const turf_register = async (req, res) => {
   const {
     name,
     email,
-    place,
-    district,
-    state,
+   location,
     mobile,
-    openingHours,
-    closingHours,
-    fee,
     password,
   } = req.body;
   console.log(req.body);
-  console.log(req.files);
-  const img = req.files;
+  const img = req.file.location;
   const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -26,10 +20,8 @@ export const turf_register = async (req, res) => {
       turfName: name,
       email,
       password: hashedPassword,
-      location: [{ district, state, place }],
+      location: location,
       contactNumber: mobile,
-      workingHours: [{ openingHours, closingHours }],
-      fee,
       images: img,
     });
 
@@ -69,7 +61,6 @@ export const toViewTurfs = async (req, res) => {
   try {
     await TurfModel.find()
       .then((turfs) =>{
-        console.log(turfs)
         res.status(200).json({turfs})})
       .catch((err) => {
         err.message;

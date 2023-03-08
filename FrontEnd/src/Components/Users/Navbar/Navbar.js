@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
- const isUser=Boolean(useSelector((state)=>state.user.token));
-  
+  const navigate = useNavigate();
+  const isUser = Boolean(useSelector((state) => state.user.token));
+  const { name } = useSelector((state) => state.user);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    if (name) {
+      setCurrentUser(name);
+    } else {
+      setCurrentUser(null);
+    }
+  });
+
   let Links = [
     { name: "HOME", link: "/" },
-    { name: "BOOK TURF", link: "/" },
+    { name: "BOOK TURF", link: "/view_turf" },
     { name: "RGISTER TURF", link: "/turf" },
-    { name: "LOGIN", link: props.loginlink },
   ];
   let [open, setOpen] = useState(false);
+
+  const navigateLogin = () => {
+    navigate(props.loginlink);
+  };
   return (
     <>
       {" "}
@@ -63,14 +78,57 @@ const Navbar = (props) => {
           >
             {Links.map((link) => (
               <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
-                <Link to={link.link}
-    
+                <Link
+                  to={link.link}
                   className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
                 >
                   {link.name}
                 </Link>
               </li>
             ))}
+
+            {/* {currentUser ? (
+              <h4  className="text-sm lg:ml-8 lg:my-0 my-7 text-white">{name}</h4>
+            ) : (
+              <button
+                onClick={navigateLogin}
+                className="text-sm lg:ml-8 lg:my-0 my-7 text-white"
+              >
+                LOGIN
+              </button>
+            )} */}
+            {currentUser ? (
+              <div className="relative">
+                <button className="text-sm lg:ml-8 lg:my-0 my-7 text-white focus:outline-none">
+                  {name}{" "}
+                  <svg
+                    className="h-4 w-4 inline-block"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+                <ul className="absolute z-10 top-10 right-0 bg-white rounded-md shadow-lg hidden">
+                  <li>
+                    <button className="w-full py-2 px-4 text-left">
+                      Logout
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <button
+                onClick={navigateLogin}
+                className="text-sm lg:ml-8 lg:my-0 my-7 text-white"
+              >
+                LOGIN
+              </button>
+            )}
           </ul>
         </div>
       </div>

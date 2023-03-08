@@ -6,6 +6,8 @@ import { setToken } from "../../../Store/userSlice";
 
 function Login() {
 
+  const {name}=useSelector((state)=>state.user)
+  console.log(name);
   const Navigate = useNavigate();
   const Dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -17,8 +19,15 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     LoginForm(formData).then((data) => {
+      console.log(data);
       token = data.data.token;
-      Dispatch(setToken(token));
+      const name = data.data.name;
+      Dispatch(
+        setToken({
+          token: token,
+          name: name,
+        })
+      );
       Navigate("/");
     });
   };

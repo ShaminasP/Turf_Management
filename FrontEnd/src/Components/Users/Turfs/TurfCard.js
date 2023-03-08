@@ -1,24 +1,37 @@
-const TurfCard = ({ _id,  turfName, images }) => {
+const TurfCard = ({ _id, turfName, images,location }) => {
   return (
-    <div className="max-w-xs p-6 rounded-md shadow-md dark:bg-gray-900 dark:text-gray-50 my-20 mx-10">
+    <article key={_id} className="flex flex-col  bg-gray-900">
       <img
-        src="https://source.unsplash.com/random/300x300/?1"
         alt=""
-        className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
+        className="object-cover w-full h-52 bg-gray-500"
+        src={images[0]}
       />
-      <div className="mt-6 mb-2">
-        <span className="block text-xs font-medium tracking-widest uppercase dark:text-violet-400">
-          Quisque
-        </span>
-        <h2 className="text-xl font-semibold tracking-wide">
-          Nam maximus purus
-        </h2>
+      <div className="flex flex-col flex-1 p-6">
+        {/* <p className="text-xs tracking-wider uppercase  text-violet-400">
+          {event}
+        </p> */}
+        <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
+          {turfName}{" "}
+           <span className="text-sm ml-1 text-gray-400 font-medium float-right mt-1">
+            {" "}
+            {location}
+          </span> 
+        </h3>
+        <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-400">
+          <span className="flex items-center space-x-2 text-yellow-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 590"
+              className="w-4 h-4 fill-current"
+            >
+              <path d="M494,198.671a40.536,40.536,0,0,0-32.174-27.592L345.917,152.242,292.185,47.828a40.7,40.7,0,0,0-72.37,0L166.083,152.242,50.176,171.079a40.7,40.7,0,0,0-22.364,68.827l82.7,83.368-17.9,116.055a40.672,40.672,0,0,0,58.548,42.538L256,428.977l104.843,52.89a40.69,40.69,0,0,0,58.548-42.538l-17.9-116.055,82.7-83.368A40.538,40.538,0,0,0,494,198.671Zm-32.53,18.7L367.4,312.2l20.364,132.01a8.671,8.671,0,0,1-12.509,9.088L256,393.136,136.744,453.3a8.671,8.671,0,0,1-12.509-9.088L144.6,312.2,50.531,217.37a8.7,8.7,0,0,1,4.778-14.706L187.15,181.238,248.269,62.471a8.694,8.694,0,0,1,15.462,0L324.85,181.238l131.841,21.426A8.7,8.7,0,0,1,461.469,217.37Z"></path>
+            </svg>
+            <span className="text-sm font-bold">4.5</span>
+          </span>
+          <span>5 Reviews</span>
+        </div>
       </div>
-      <p className="dark:text-gray-100">
-        Mauris et lorem at elit tristique dignissim et ullamcorper elit. In sed
-        feugiat mi. Etiam ut lacinia dui.
-      </p>
-    </div>  
+    </article>
   );
 };
 export default TurfCard;
