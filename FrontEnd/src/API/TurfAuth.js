@@ -14,7 +14,7 @@ export const turfRegister = (data) => {
 export const turfLogin = (data) => {
   return new Promise((resolve, reject) => {
     Axiosuser.post("/turf/login", data)
-      .then(() => resolve())
+      .then((data) => resolve(data))
       .catch((err) => reject(err?.response?.data?.message));
   });
 };
@@ -22,9 +22,19 @@ export const turfLogin = (data) => {
 export const getTurfs = () => {
   return new Promise((resolve, reject) => {
     Axiosuser.get("/turf/viewturfs")
-      .then(({data}) =>{
-        resolve(data)
-        } ) 
+      .then(({ data }) => {
+        resolve(data);
+      })
+      .catch((err) => reject(err?.response?.data?.message));
+  });
+};
+
+export const getTurf = (id) => {
+  return new Promise((resolve, reject) => {
+    Axiosuser.get(`/turf/viewturf/${id}`)
+      .then(({ data }) => {
+        resolve(data);
+      })
       .catch((err) => reject(err?.response?.data?.message));
   });
 };

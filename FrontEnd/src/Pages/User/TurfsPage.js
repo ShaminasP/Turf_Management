@@ -3,7 +3,7 @@ import Turfs from "../../Components/Users/Turfs/Turfs";
 const TurfsPage = () => {
   return (
     <>
-      <Navbar loginlink="/login" />
+      <Navbar/>
       <Turfs />
     </>
   );

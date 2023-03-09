@@ -5,7 +5,7 @@ import Navbar from "../../Components/Users/Navbar/Navbar";
 function Home() {
   return (
     <>
-      <Navbar loginlink="/login" />
+      <Navbar/>
       <Body />
     </>
   );

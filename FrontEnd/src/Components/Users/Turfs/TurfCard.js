@@ -1,6 +1,17 @@
-const TurfCard = ({ _id, turfName, images,location }) => {
+import { useNavigate } from "react-router-dom";
+
+const TurfCard = ({ _id, turfName, images, location }) => {
+  const Navigate = useNavigate();
+  const viewSingle = (id) => {
+    Navigate("/turf_details", { state: id });
+  };
+
   return (
-    <article key={_id} className="flex flex-col  bg-gray-900">
+    <article
+      key={_id}
+      className="flex flex-col  bg-gray-900"
+      onClick={() => viewSingle(_id)}
+    >
       <img
         alt=""
         className="object-cover w-full h-52 bg-gray-500"
@@ -12,10 +23,10 @@ const TurfCard = ({ _id, turfName, images,location }) => {
         </p> */}
         <h3 className="flex-1 py-2 text-lg font-semibold leading-snug">
           {turfName}{" "}
-           <span className="text-sm ml-1 text-gray-400 font-medium float-right mt-1">
+          <span className="text-sm ml-1 text-gray-400 font-medium float-right mt-1">
             {" "}
             {location}
-          </span> 
+          </span>
         </h3>
         <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs text-gray-400">
           <span className="flex items-center space-x-2 text-yellow-500">

@@ -3,13 +3,7 @@ import jwt from "jsonwebtoken";
 import TurfModel from "../Model/TurfModel.js";
 
 export const turf_register = async (req, res) => {
-  const {
-    name,
-    email,
-   location,
-    mobile,
-    password,
-  } = req.body;
+  const { name, email, location, mobile, password } = req.body;
   console.log(req.body);
   const img = req.file.location;
   const saltRounds = 10;
@@ -50,7 +44,8 @@ export const turf_login = async (req, res) => {
     const token = jwt.sign({ email: turf.email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.json({ token });
+    const name = turf.turfName;
+    res.json({ token, name });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -60,11 +55,25 @@ export const turf_login = async (req, res) => {
 export const toViewTurfs = async (req, res) => {
   try {
     await TurfModel.find()
-      .then((turfs) =>{
-        res.status(200).json({turfs})})
+      .then((turfs) => {
+        res.status(200).json({ turfs });
+      })
       .catch((err) => {
         err.message;
       });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "server error" });
+  }
+};
+
+export const toViewTurf = async (req, res) => {
+  try {
+    const ID = req.params.id;
+    await TurfModel.findById(ID).then((turf) => {
+      console.log(turf);
+      res.status(200).json({ turf });
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "server error" });

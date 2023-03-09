@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const isUser = Boolean(useSelector((state) => state.user.token));
-  const { name } = useSelector((state) => state.user);
+  const { name } = useSelector((state) => state.admin);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -19,13 +19,13 @@ const Navbar = () => {
 
   let Links = [
     { name: "HOME", link: "/" },
-    { name: "BOOK TURF", link: "/view_turf" },
-    { name: "RGISTER TURF", link: "/turf/register" },
+    // { name: "BOOK TURF", link: "/view_turf" },
+    // { name: "RGISTER TURF", link: "/turf/register" },
   ];
   let [open, setOpen] = useState(false);
 
   const navigateLogin = () => {
-    navigate("/login");
+    navigate("/turf/login");
   };
   return (
     <>
@@ -89,7 +89,6 @@ const Navbar = () => {
 
             {currentUser ? (
               <>
-                {" "}
                 <h4 className="text-sm lg:ml-8 lg:my-0 my-7 text-white">
                   {currentUser}
                 </h4>
@@ -98,12 +97,19 @@ const Navbar = () => {
                 </li>
               </>
             ) : (
-              <button
-                onClick={navigateLogin}
-                className="text-sm lg:ml-8 lg:my-0 my-7 text-white"
-              >
-                LOGIN
-              </button>
+              <>
+                <Link to={"/turf/register"}>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7 text-white">
+                    RGISTER TURF
+                  </li>{" "}
+                </Link>
+                <button
+                  onClick={navigateLogin}
+                  className="text-sm lg:ml-8 lg:my-0 my-7 text-white"
+                >
+                  LOGIN
+                </button>
+              </>
             )}
           </ul>
         </div>
