@@ -4,7 +4,6 @@ import TurfModel from "../Model/TurfModel.js";
 
 export const turf_register = async (req, res) => {
   const { name, email, location, mobile, password } = req.body;
-  console.log(req.body);
   const img = req.file.location;
   const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
@@ -24,7 +23,7 @@ export const turf_register = async (req, res) => {
     res.status(200).json({ message: "Turf registration successful" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to register turf" });
+    res.status(500).json(error?.response?.data?.message);
   }
 };
 
@@ -41,26 +40,20 @@ export const turf_login = async (req, res) => {
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
-    const token = jwt.sign({ email: turf.email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ id: turf._id }, process.env.JWT_SECRET);
     const name = turf.turfName;
     res.json({ token, name });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json(error?.response?.data?.message);
   }
 };
 
 export const toViewTurfs = async (req, res) => {
   try {
-    await TurfModel.find()
-      .then((turfs) => {
-        res.status(200).json({ turfs });
-      })
-      .catch((err) => {
-        err.message;
-      });
+    const turfs = await TurfModel.find();
+
+    res.status(200).json({ turfs });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "server error" });
@@ -70,12 +63,22 @@ export const toViewTurfs = async (req, res) => {
 export const toViewTurf = async (req, res) => {
   try {
     const ID = req.params.id;
-    await TurfModel.findById(ID).then((turf) => {
-      console.log(turf);
-      res.status(200).json({ turf });
-    });
+    const turf = await TurfModel.findById(ID);
+    res.status(200).json({ turf });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "server error" });
+    res.status(500).json(error?.response?.data?.message);
+  }
+};
+
+export const toGetTurf = async (req, res) => {
+  try {
+    const ID = req.user.id;
+    const turf = await TurfModel.findById(ID);
+    console.log(turf);
+    res.status(200).json({ turf });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data?.message);
   }
 };

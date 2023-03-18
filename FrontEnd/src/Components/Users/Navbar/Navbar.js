@@ -31,7 +31,7 @@ const Navbar = () => {
     <>
       {" "}
       <div className="shadow-lg w-full fixed top-0 left-0">
-        <div className="lg:flex items-center justify-between bg-indigo-900 py-4 lg:px-10 px-7">
+        <div className="lg:flex items-center justify-between bg-red-700 py-4 lg:px-10 px-7">
           <div
             className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
       text-white"
@@ -72,7 +72,7 @@ const Navbar = () => {
           </div>
 
           <ul
-            className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static bg-white lg:bg-indigo-900 lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
+            className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
               open ? "top-[67px] " : "top-[-490px]"
             }`}
           >

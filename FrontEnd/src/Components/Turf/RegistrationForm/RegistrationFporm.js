@@ -6,9 +6,6 @@ const RegistrationForm = () => {
     name: "",
     email: "",
     mobile: "",
-    // place: "",
-    // district: "",
-    // state: "",
     location: "",
     password: "",
     image: "",
@@ -16,7 +13,6 @@ const RegistrationForm = () => {
 
   const [formData, setFormData] = useState(intialState);
   const [location, setLocation] = useState("");
-  const [selectLocation, setSelectLocation] = useState({});
   const [suggestion, setSuggestion] = useState([]);
   const inputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,25 +28,20 @@ const RegistrationForm = () => {
     setFormData({ ...formData, image: img });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    turfRegister(formData);
+    const tufrsDetails = await turfRegister(formData);
+    // console.log(tufrsDetails);
   };
 
   const handlePlace = (suggestion) => {
-    setLocation(suggestion)
+    setLocation(suggestion);
     setFormData({ ...formData, location: suggestion });
-    // console.log(formData);
   };
-  console.log(location);
 
-
-const inputLocationChange = (event) => {
-  console.log(event.target.value);
-  setLocation(event.target.value)
-}
-
-
+  const inputLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
 
   return (
     <>
@@ -122,7 +113,6 @@ const inputLocationChange = (event) => {
                 value={location}
                 onChange={inputLocation}
                 onInput={inputLocationChange}
-
                 placeholder="Type your place"
                 className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
@@ -130,12 +120,13 @@ const inputLocationChange = (event) => {
                 {suggestion.map((suggest, index) => (
                   <li
                     key={index}
-                    onClick={() => handlePlace(suggest)}
+                    onClick={() => {
+                      handlePlace(suggest);
+                      setSuggestion([]);
+                    }}
                     className="px-3 py-2 cursor-pointer border-b-2 hover:bg-gray-200"
                   >
-                    <span className="text-lg font-bold">{suggestion}</span>{" "}
-                    <br />
-                    {/* {suggestion} */}
+                    <span className="text-lg font-bold">{suggest}</span> <br />
                   </li>
                 ))}
               </ul>

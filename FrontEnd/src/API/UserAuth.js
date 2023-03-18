@@ -1,27 +1,55 @@
 import { Axiosuser } from "./axiosinstance";
 
-export const SignupForm = (data) => {
-  return new Promise((resolve, reject) => {
-    Axiosuser.post("/signup", data)
-      .then(() => resolve())
-      .catch((err) => reject(err?.response?.data?.message));
-  });
+export const SignupForm = async (data) => {
+  try {
+    await Axiosuser.post("/signup", data);
+    return;
+  } catch (error) {
+    return error.response;
+  }
 };
 
-export const OTP = (data) => {
-  return new Promise((resolve, reject) => {
-    Axiosuser.post("/otp", data)
-      .then(() => resolve())
-      .catch((err) => reject(err?.response?.data?.message));
-  });
+export const OTP = async (data) => {
+  try {
+    await Axiosuser.post("/otp", data);
+    return;
+  } catch (error) {
+    return error.response;
+  }
 };
 
-export const LoginForm = (data) => {
-  return new Promise((resolve, reject) => {
-    Axiosuser.post("/login", data)
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => reject(err?.response?.data?.message));
-  });
+export const LoginForm = async (data) => {
+  try {
+    const response = await Axiosuser.post("/login", data);
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getTurfs = async () => {
+  try {
+    const response = await Axiosuser.get("/viewturfs");
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getTurf = async (id) => {
+  try {
+    const response = await Axiosuser.get(`/viewturf/${id}`);
+    return response.data;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const toGetTurfBySearch = async (data) => {
+  try {
+    const response = await Axiosuser.get(`/turfbylocation/${data}`);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };

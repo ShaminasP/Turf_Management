@@ -8,5 +8,5 @@ module.exports = {
       ...defaultTheme.screens,
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }

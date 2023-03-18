@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { turfLogin } from "../../../API/TurfAuth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAdmin } from "../../../Store/AdminSlice";
 
 function Login() {
-  const { name } = useSelector((state) => state.admin);
-  console.log(name);
-
   const Navigate = useNavigate();
   const Dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -17,20 +14,18 @@ function Login() {
     console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    turfLogin(formData).then((data) => {
-      const token = data.data.token;
-      console.log(token);
-      const name = data.data.name;
-      Dispatch(
-        setAdmin({
-          token: token,
-          name: name,
-        })
-      );
-      Navigate("/turf");
-    });
+    const data = await turfLogin(formData);
+    const token = data.data.token;
+    const name = data.data.name;
+    Dispatch(
+      setAdmin({
+        token: token,
+        name: name,
+      })
+    );
+    Navigate("/turf");
   };
 
   return (

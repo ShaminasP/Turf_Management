@@ -16,21 +16,18 @@ function OtpForm({ formData }) {
     }
   };
 
-  const submitOtp = (e) => {
+  const submitOtp = async (e) => {
     e.preventDefault();
     const otpJoined = otp.join("");
     formData.otp = otpJoined;
-    OTP(formData)
-      .then(() => {
-        setOtp(["", "", "", "", "", ""]);
-        Navigate("/login");
-      })
-      .catch((err) => setErr(err));
+    await OTP(formData);
+    setOtp(["", "", "", "", "", ""]);
+    Navigate("/login");
   };
 
   return (
     <div className="flex justify-center h-screen items-center bg">
-      <div className="bg-indigo-800 flex-col justify-center mb-3 pb-5 px-11 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+      <div className="bg-white flex-col justify-center mb-3 pb-5 px-11 rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
         <div className="flex justify-evenly">
           <h2 className="text-2xl font-[Poppins] font-bold pt-5 pb-3 sm:p-6 sm:pb-4">
             Enter the OTP send to your number <br />
@@ -52,15 +49,13 @@ function OtpForm({ formData }) {
           <div>
             <button
               type="submit"
-              className="bg-indigo-500 text-white font-medium py-2 px-5 ml-5 rounded hover:bg-indigo-600"
+              className="bg-red-500 text-white font-medium py-2 px-5 ml-5 rounded hover:bg-white"
             >
               Submit
             </button>
           </div>
         </form>
-        <div className="text-red-500 flex w-full justify-evenly">
-          {" "}
-        </div>
+        <div className="text-red-500 flex w-full justify-evenly"> </div>
       </div>
     </div>
   );

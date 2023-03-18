@@ -5,12 +5,15 @@ const userSlice = createSlice({
   initialState: {
     token: null,
     name: null,
-
+    search: [],
   },
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload.token;
       state.name = action.payload.name;
+    },
+    setTurfSearch: (state, action) => {
+      state.search = action.payload;
     },
     resetToken: (state) => {
       state.token = null;
@@ -19,5 +22,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setToken, resetToken } = userSlice.actions;
+export const { setToken, resetToken, setTurfSearch } = userSlice.actions;
 export default userSlice.reducer;

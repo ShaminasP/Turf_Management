@@ -9,7 +9,7 @@ const TurfCard = ({ _id, turfName, images, location }) => {
   return (
     <article
       key={_id}
-      className="flex flex-col  bg-gray-900"
+      className="flex flex-col  bg-gray-100 border-2"
       onClick={() => viewSingle(_id)}
     >
       <img
