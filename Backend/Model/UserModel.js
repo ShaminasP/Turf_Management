@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     // min: 6,
   },
+  role:{
+    type: String,
+    required: true,
+  }
 });
 const UserModel = mongoose.model("User", userSchema);
 export default UserModel;

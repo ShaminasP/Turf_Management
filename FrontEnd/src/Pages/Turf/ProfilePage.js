@@ -1,4 +1,4 @@
-import Navbar from "../../Components/Turf/Navbar/Navbar";
+import Navbar from "../../Components/Users/Navbar/Navbar";
 import Profile from "../../Components/Turf/Profile/Profile"
 
 const ProfilePage = () => {

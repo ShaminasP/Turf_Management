@@ -15,11 +15,11 @@ export const signUp = async (req, res) => {
       return res
         .status(409)
         .json({ message: "This number is alredy registered" });
-        
+
     sendSms(mobile);
     return res.status(200).json({ message: `OTP sent to ${mobile}` });
   } catch (error) {
-    res.status(500).json(error?.response?.data?.message)
+    res.status(500).json(error?.response?.data?.message);
     console.log(error);
   }
 };
@@ -36,8 +36,9 @@ export const checkOtp = (req, res) => {
       const newUser = new UserModel({
         name,
         email,
-        password: hashedPassword,
         mobile,
+        password: hashedPassword,
+        role: "User",
       });
       newUser.save();
     });
@@ -58,11 +59,11 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    console.log(token);
     const name = user.name;
-    res.json({ token, name });
+    const role = user.role;
+    res.status(200).json({ token, name, role });
   } catch (error) {
-    res.status(500).json(error?.response?.data?.message)
+    res.status(500).json(error?.response?.data?.message);
     console.log(error);
   }
 };

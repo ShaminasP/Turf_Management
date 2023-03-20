@@ -11,7 +11,7 @@ const User = () => {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/register" element={<TurfRegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/login" element={<LoginPage />} /> */}
         <Route path="/profile" element={<ProfilePage/>}/>
       </Routes>
     </>

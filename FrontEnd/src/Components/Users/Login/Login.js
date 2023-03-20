@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginForm } from "../../../API/UserAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "../../../Store/userSlice";
+import { setToken, setTurf } from "../../../Store/userSlice";
 import AlertMessage from "../../AlertMessage/AlertMessage";
+import { FormValidate } from "../../../Helpers/Helpers";
+import { viewTurfByOwner } from "../../../API/TurfAuth";
 
 function Login() {
-  const { name } = useSelector((state) => state.user);
-  console.log(name);
   const Navigate = useNavigate();
   const Dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [dataError, setDataError] = useState({});
+  console.log(dataError);
+
+  const validateForm = () => {
+    const errors = FormValidate(formData);
+    setDataError(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,17 +31,23 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     const data = await LoginForm(formData);
-    if (data.status === 200) {
+    if (data.status === 200 && data?.data?.role === "User") {
       Dispatch(
         setToken({
-          name: data.name,
-          token: data.token,
+          name: data.data.name,
+          token: data.data.token,
         })
       );
       Navigate("/");
     }
-
+    if (data.status === 200 && data?.data?.role === "turfAdmin") {
+      const turf = await viewTurfByOwner(data.data.token);
+      Dispatch(setTurf(turf?.data?.turf));
+      Dispatch(setToken({ token: data?.data?.token }));
+      Navigate("/turf");
+    }
     if (data?.status === 401) return setError(data?.data?.message);
   };
 
@@ -64,6 +78,11 @@ function Login() {
                   placeholder="leroy@jenkins.com"
                   className="w-full px-3 py-2 border rounded-md  border-black  text-black"
                 />
+                {dataError.email && (
+                  <p className="text-red-500 mt-1 text-xs italic">
+                    {dataError.email}
+                  </p>
+                )}
               </div>
               <div>
                 <div className="flex justify-between mb-2">
@@ -80,6 +99,11 @@ function Login() {
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md border-black text-gray-900"
                 />
+                {dataError.password && (
+                  <p className="text-red-500 mt-1 text-xs italic">
+                    {dataError.password}
+                  </p>
+                )}
               </div>
             </div>
             <div className="space-y-2">

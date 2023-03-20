@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { turfRegister } from "../../../API/TurfAuth";
 import { Location_Search } from "../../../API/Mapbox";
+import { useSelector } from "react-redux";
+import AlertMessage from "../../AlertMessage/AlertMessage";
+import ModalMessage from "../../Modal/Modal.js";
 const RegistrationForm = () => {
   const intialState = {
     name: "",
     email: "",
     mobile: "",
     location: "",
-    password: "",
     image: "",
   };
+
+  const { token } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState(intialState);
   const [location, setLocation] = useState("");
   const [suggestion, setSuggestion] = useState([]);
+  const [error, setError] = useState("");
+  const [modal, setModal] = useState("");
   const inputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,7 +28,7 @@ const RegistrationForm = () => {
     const result = await Location_Search(location);
     setSuggestion(result.map((f) => f.place_name));
   };
-
+  console.log(error);
   const handleImage = (event) => {
     const img = event.target.files[0];
     setFormData({ ...formData, image: img });
@@ -30,8 +36,11 @@ const RegistrationForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const tufrsDetails = await turfRegister(formData);
-    // console.log(tufrsDetails);
+    const tufrsDetails = await turfRegister(formData, token);
+    if (tufrsDetails.status === 400 || tufrsDetails.status === 401)
+      return setError(tufrsDetails?.data?.message);
+    if (tufrsDetails.status === 200)
+      return setModal(tufrsDetails?.data?.message);
   };
 
   const handlePlace = (suggestion) => {
@@ -47,6 +56,9 @@ const RegistrationForm = () => {
     <>
       <div className="flex items-center justify-center p-12 bg-white">
         <div className="mx-auto w-full max-w-[550px]">
+      {modal && <ModalMessage message={modal} close={() => setModal("")} />}
+
+          {error && <AlertMessage message={error} close={() => setError("")} />}
           <form onSubmit={onSubmit}>
             <div className="mb-5">
               <label
@@ -143,23 +155,6 @@ const RegistrationForm = () => {
                 name="image"
                 onChange={handleImage}
                 id="image"
-                placeholder="Type your Password"
-                className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor="Password"
-                className="mb-3 block text-base font-medium text-[#07074D]"
-              >
-                Password
-              </label>
-              <input
-                type="password  "
-                name="password"
-                id="Password"
-                value={formData.password}
-                onChange={inputChange}
                 placeholder="Type your Password"
                 className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />

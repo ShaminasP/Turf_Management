@@ -2,8 +2,8 @@ import { Axiosuser } from "./axiosinstance";
 
 export const SignupForm = async (data) => {
   try {
-    await Axiosuser.post("/signup", data);
-    return;
+    const response = await Axiosuser.post("/signup", data);
+    return response;
   } catch (error) {
     return error.response;
   }
@@ -11,8 +11,8 @@ export const SignupForm = async (data) => {
 
 export const OTP = async (data) => {
   try {
-    await Axiosuser.post("/otp", data);
-    return;
+    const response = await Axiosuser.post("/otp", data);
+    return response;
   } catch (error) {
     return error.response;
   }
@@ -21,7 +21,7 @@ export const OTP = async (data) => {
 export const LoginForm = async (data) => {
   try {
     const response = await Axiosuser.post("/login", data);
-    return response.data;
+    return response;
   } catch (error) {
     return error.response;
   }

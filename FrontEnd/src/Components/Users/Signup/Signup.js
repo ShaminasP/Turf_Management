@@ -17,7 +17,6 @@ function Signup() {
   const [otp, setOtp] = useState(false);
   const [error, setError] = useState("");
   const [dataError, setDataError] = useState({});
-  console.log(error);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,15 +27,15 @@ function Signup() {
     setDataError(errors);
     return Object.keys(errors).length === 0;
   };
-
   const handleClose = () => {
     setError("");
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if(!validate()) return;
+    if (!validate()) return;
     const response = await SignupForm(formData);
+    console.log(response);
     if (response.status === 200) return setOtp(true);
     if (response.status === 409) return setError(response?.data?.message);
   };
@@ -55,7 +54,7 @@ function Signup() {
                 <p className="text-sm text-gray-700">
                   Welcome to the world of SPORTS
                 </p>
-                {dataError && <AlertMessage message={error} close={handleClose} />}
+                {error && <AlertMessage message={error} close={handleClose} />}
               </div>
               <form
                 onSubmit={submitForm}
@@ -77,7 +76,12 @@ function Signup() {
                       placeholder="leroy"
                       className="w-full px-3 py-2 border rounded-md border-gray-900  text-gray-900"
                     />
-                     {errors.email && (<p className="text-red-500 mt-1 text-xs italic"> {errors.email}</p>)}
+                    {dataError.name && (
+                      <p className="text-red-500 mt-1 text-xs italic">
+                        {" "}
+                        {dataError.name}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label for="email" className="block mb-2 text-sm">
@@ -92,6 +96,12 @@ function Signup() {
                       placeholder="leroy@jenkins.com"
                       className="w-full px-3 py-2 border rounded-md border-gray-900  text-gray-900"
                     />
+                    {dataError.email && (
+                      <p className="text-red-500 mt-1 text-xs italic">
+                        {" "}
+                        {dataError.email}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label for="mobile" className="block mb-2 text-sm">
@@ -106,6 +116,12 @@ function Signup() {
                       placeholder="7034002589"
                       className="w-full px-3 py-2 border rounded-md  border-gray-900  text-gray-900"
                     />
+                    {dataError.mobile && (
+                      <p className="text-red-500 mt-1 text-xs italic">
+                        {" "}
+                        {dataError.mobile}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
@@ -122,6 +138,12 @@ function Signup() {
                       placeholder="*****"
                       className="w-full px-3 py-2 border rounded-md border-gray-900  text-gray-900"
                     />
+                    {dataError.password && (
+                      <p className="text-red-500 mt-1 text-xs italic">
+                        {" "}
+                        {dataError.password}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="space-y-2">

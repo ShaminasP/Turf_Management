@@ -7,10 +7,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const isUser = Boolean(useSelector((state) => state.user.token));
   const { name } = useSelector((state) => state.user);
+  const { turf } = useSelector((state) => state.user);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    if (name) {
+    if (turf) {
+      setCurrentUser(turf.turfName);
+    } else if (name) {
       setCurrentUser(name);
     } else {
       setCurrentUser(null);
@@ -21,12 +24,16 @@ const Navbar = () => {
     { name: "HOME", link: "/" },
     { name: "BOOK TURF", link: "/view_turf" },
     { name: "RGISTER TURF", link: "/turf/register" },
+    { name: "LOGIN", link: "/login" },
+  ];
+
+  let links = [
+    { name: "HOME", link: "/" },
+    { name: "BOOK TURF", link: "/view_turf" },
+    { name: "RGISTER TURF", link: "/turf/register" },
   ];
   let [open, setOpen] = useState(false);
 
-  const navigateLogin = () => {
-    navigate("/login");
-  };
   return (
     <>
       {" "}
@@ -70,42 +77,93 @@ const Navbar = () => {
               </svg>
             )}
           </div>
+          {currentUser ? (
+            <ul
+              className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
+                open ? "top-[67px] " : "top-[-490px]"
+              }`}
+            >
+              {currentUser && turf ? (
+                <>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link 
+                      to={"/turf"}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                      
+                    >
+                      DASHBOARD
+                    </Link>
+                  </li>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link
+                      to={"/turf/profile"}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
 
-          <ul
-            className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
-              open ? "top-[67px] " : "top-[-490px]"
-            }`}
-          >
-            {Links.map((link) => (
-              <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
-                <Link
-                  to={link.link}
-                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
+                    >
+                      {currentUser}
+                    </Link>
+                  </li>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link
+                      to={""}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
 
-            {currentUser ? (
-              <>
-                {" "}
-                <h4 className="text-sm lg:ml-8 lg:my-0 my-7 text-white">
+                    >
+                      LOG OUT
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  {links.map((link) => (
+                    <li
+                      key={link.name}
+                      className="text-sm lg:ml-8 lg:my-0 my-7"
+                    >
+                      <Link
+                        to={link.link}
+                        className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}<li className="text-sm lg:ml-8 lg:my-0 my-7">
+                  <Link
+                    to={""}
+                    className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                  >
                   {currentUser}
-                </h4>
-                <li className="text-sm lg:ml-8 lg:my-0 my-7 text-white">
-                  LOG OUT
+                  </Link>
                 </li>
-              </>
-            ) : (
-              <button
-                onClick={navigateLogin}
-                className="text-sm lg:ml-8 lg:my-0 my-7 text-white"
-              >
-                LOGIN
-              </button>
-            )}
-          </ul>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link
+                      to={""}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                    >
+                      LOG OUT
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          ) : (
+            <ul
+              className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
+                open ? "top-[67px] " : "top-[-490px]"
+              }`}
+            >
+              {Links.map((link) => (
+                <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
+                  <Link
+                    to={link.link}
+                    className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </>

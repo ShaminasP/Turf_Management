@@ -11,10 +11,12 @@ const turfSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: {
-    type: String,
+  turfAdmin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
+
   // location: [
   //   {
   //     place: {

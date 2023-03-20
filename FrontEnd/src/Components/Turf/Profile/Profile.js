@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { viewTurfByOwner } from "../../../API/TurfAuth";
 const TurfPorfile = () => {
-  const { token } = useSelector((state) => state.admin);
+  const { token } = useSelector((state) => state.user);
   console.log(token);
 
   const [data, setData] = useState({});
-  console.log(data);
 
   useEffect(() => {
-    const data = viewTurfByOwner(token);
-    setData(data.data.turf);
+    const fetchData = async () => {
+      const response = await viewTurfByOwner(token);
+      setData(response?.data?.turf);
+    };
+    fetchData();
   }, []);
 
   return (
@@ -19,7 +21,7 @@ const TurfPorfile = () => {
         <img
           className="mb-10 w-5/6 rounded object-cover object-center md:w-3/6 lg:w-2/6"
           alt="hero"
-          src={data.images}
+          src={data?.images}
         />
         <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
           {data?.turfName}
