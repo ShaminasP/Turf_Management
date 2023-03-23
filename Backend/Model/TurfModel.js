@@ -16,6 +16,10 @@ const turfSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  turfStatus: {
+    type: Boolean,
+    default: false,
+  },
 
   // location: [
   //   {

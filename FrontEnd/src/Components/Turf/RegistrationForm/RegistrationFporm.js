@@ -54,10 +54,10 @@ const RegistrationForm = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center p-12 bg-white">
-        <div className="mx-auto w-full max-w-[550px]">
       {modal && <ModalMessage message={modal} close={() => setModal("")} />}
 
+      <div className="flex items-center justify-center p-12 bg-white">
+        <div className="mx-auto w-full max-w-[550px]">
           {error && <AlertMessage message={error} close={() => setError("")} />}
           <form onSubmit={onSubmit}>
             <div className="mb-5">
@@ -80,7 +80,7 @@ const RegistrationForm = () => {
             <div className="mb-5">
               <label
                 htmlFor="email"
-                className="mb-3 block text-base font-medium text-[#07074D]"
+                className="mb-3 block text-base font-medium text-[#4d0731]"
               >
                 Email Address
               </label>
@@ -162,7 +162,7 @@ const RegistrationForm = () => {
             <div>
               <button
                 type="submit"
-                className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none "
+                className="hover:shadow-form rounded-md bg-[#ba2a2abb] py-3 px-8 text-base font-semibold text-white outline-none "
               >
                 Register
               </button>

@@ -4,22 +4,25 @@ import TurfModel from "../Model/TurfModel.js";
 import UserModel from "../Model/UserModel.js";
 
 export const turf_register = async (req, res) => {
+  console.log(req.files);
+
   const { name, email, location, mobile } = req.body;
   if (!name || !email || !location || !mobile) {
     res.status(401).json({ message: "fields cannot be blank" });
   }
   const registered = await TurfModel.findOne({ email: email });
   if (registered)
-     res
+    res
       .status(400)
       .json({ message: "Turf is already registered with this email" });
 
-  const img = req?.file?.location;
+  const img = req?.files;
+  console.log(img);
   try {
     const newTurf = new TurfModel({
       turfName: name,
       email,
-      location: location,
+      location,
       contactNumber: mobile,
       images: img,
       turfAdmin: req?.user?.id,
@@ -60,7 +63,7 @@ export const turf_register = async (req, res) => {
 
 export const toViewTurfs = async (req, res) => {
   try {
-    const turfs = await TurfModel.find();
+    const turfs = await TurfModel.find({ turfStatus: true });
     res.status(200).json({ turfs });
   } catch (error) {
     console.log(error);

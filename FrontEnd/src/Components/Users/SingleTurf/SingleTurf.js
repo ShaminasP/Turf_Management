@@ -20,14 +20,14 @@ const SingleTurf = () => {
         <img
           className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded border-2"
           alt="hero"
-          src={data.images}
+          src={data?.images}
         />
         <div className="w-full md:w-2/3 flex flex-col mb-16 items-center text-center">
-          <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-black  ">
+          <h1 className="title-font sm:text-4xl text-3xl mb-2 font-medium text-black  ">
             {data.turfName}
           </h1>
-          <p className="mb-8 leading-relaxed">{data.location}</p>
-          <p>{data.contactNumber}</p>
+          <p className=" leading-relaxed">{data?.location}</p>
+          <p>{data?.contactNumber}</p>
         </div>
       </div>
     </section>

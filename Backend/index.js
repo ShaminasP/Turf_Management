@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import userRouter from "./Routes/userRouter.js";
 import turfRoute from "./Routes/TurfRoute.js";
+import adminRoute from "./Routes/AdminRoute.js";
 import mongoose from "mongoose";
 import cors from "cors";
 const app = express();
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MongoUrl, () =>
 app.use(cors());
 app.use("/", userRouter);
 app.use("/turf", turfRoute);
+app.use("/admin", adminRoute);
 app.listen(3001, () => {
   console.log("Running on port 3001");
 });

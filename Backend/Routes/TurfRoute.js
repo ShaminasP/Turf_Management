@@ -8,7 +8,7 @@ import {
 } from "../Controller/TurfController.js";
 import upload from "../Helpers/multer.js";
 
-router.post("/register", authVerify, upload.single("image"), turf_register);
+router.post("/register", authVerify, upload.array("image",4), turf_register);
 
 // router.post("/login", turf_login);
 

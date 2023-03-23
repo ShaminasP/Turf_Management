@@ -15,12 +15,11 @@ const Turf = () => {
     setError("");
   };
 
-  const fetchTurfs = async () => {
-    const res = await getTurfs();
-    setTurfs(res.turfs);
-  };
-
   useEffect(() => {
+    const fetchTurfs = async () => {
+      const res = await getTurfs();
+      setTurfs(res.turfs);
+    };
     fetchTurfs();
   }, []);
 
@@ -47,7 +46,7 @@ const Turf = () => {
             </>
           ) : (
             <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
-              {turfs.map((turf) => (
+              {turfs?.map((turf) => (
                 <TurfCard key={turf._id} {...turf} />
               ))}
             </div>
