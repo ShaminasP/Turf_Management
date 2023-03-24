@@ -20,23 +20,6 @@ const turfSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-
-  // location: [
-  //   {
-  //     place: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     district: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     state: {
-  //       type: String,
-  //       // required: true,
-  //     },
-  //   },
-  // ],
   location: {
     type: String,
     required: true,
@@ -45,18 +28,16 @@ const turfSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  workingHours: [
-    {
-      openingHours: {
-        type: String,
-        // required: true,
-      },
-      closingHours: {
-        type: String,
-        // required: true,
-      },
-    },
-  ],
+
+  openingHour: {
+    type: String,
+    // required: true,
+  },
+  closingHour: {
+    type: String,
+    // required: true,
+  },
+
   bookingStatus: {
     type: Boolean,
   },

@@ -29,6 +29,7 @@ export const getRequestedTurf = async (req, res) => {
 
 export const toAcceptTurfRequest = async (req, res) => {
   try {
+    console.log(req.body);
     const ID = req.body.ID;
     console.log(ID);
     const turf = await TurfModel.findByIdAndUpdate(ID, {
@@ -43,7 +44,7 @@ export const toAcceptTurfRequest = async (req, res) => {
 };
 
 export const toCancelTurfRequest = async (req, res) => {
-  const ID = req.body.ID;
+  const ID = req.body.id;
   await TurfModel.findByIdAndDelete(ID);
   res.status(200).json({ message: "cancelled" });
 };

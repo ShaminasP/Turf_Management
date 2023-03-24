@@ -15,7 +15,7 @@ const TurfCard = ({ _id, turfName, images, location }) => {
       <img
         alt=""
         className="object-cover w-full h-52 bg-gray-500"
-        src={images[0]}
+        src={images?.[0].location}
       />
       <div className="flex flex-col flex-1 p-6">
         {/* <p className="text-xs tracking-wider uppercase  text-violet-400">

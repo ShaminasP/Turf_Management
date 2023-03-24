@@ -7,9 +7,9 @@ import AlertMessage from "../../AlertMessage/AlertMessage";
 
 const Turf = () => {
   const [error, setError] = useState("");
-  console.log(error);
   const [turfs, setTurfs] = useState([]);
   const { search } = useSelector((state) => state.user);
+  console.log(turfs);
 
   const handleClose = () => {
     setError("");

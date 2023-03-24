@@ -85,10 +85,34 @@ export const toViewTurf = async (req, res) => {
 export const toGetTurf = async (req, res) => {
   try {
     const ID = req.user.id;
-    console.log(ID);
     const turf = await TurfModel.findOne({ turfAdmin: ID });
-    console.log(turf);
     res.status(200).json({ turf });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data?.message);
+  }
+};
+
+export const toUpdateTufDetails = async (req, res) => {
+  try {
+    const {
+      _id,
+      turfName,
+      email,
+      location,
+      contactNumber,
+      closingHour,
+      openingHour,
+      fees,
+    } = req.body.data;
+    const updateDataturf = await TurfModel.findByIdAndUpdate(_id, {
+      contactNumber: contactNumber,
+      openingHour: openingTime,
+      closingHour: closingTime,
+      fee: fees,
+    });
+    console.log(req.body);
+    console.log(updateDataturf);
   } catch (error) {
     console.log(error);
     res.status(500).json(error?.response?.data?.message);

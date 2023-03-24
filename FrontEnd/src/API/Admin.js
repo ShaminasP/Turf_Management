@@ -32,14 +32,16 @@ export const getRequestedTurf = async (data) => {
 };
 
 export const changeStatus = async (ID, token) => {
+  alert(token);
+  alert(ID);
   try {
-    const response = await Axiosuser.patch(
-      "/admin/status",
-      { ID },
-      {
-        headers: { Authorization: token },
-      }
-    );
+    const response = await Axiosuser.patch("/admin/status", {
+      ID,
+      // }, {
+      //   headers: { Authorization: token },
+      //   withCredentials: true,
+      // });
+    });
     return response;
   } catch (error) {
     return error.response;
@@ -47,15 +49,16 @@ export const changeStatus = async (ID, token) => {
 };
 
 export const deleteRequest = async (ID, token) => {
-  console.log(token);
   try {
-    const response = await Axiosuser.delete(
-      "/admin/status",
-      { ID },
-      { headers: { Authorization: token } }
-    );
+    const response = await Axiosuser.delete("/admin/status", {
+      headers: { Authorization: token },
+      data: { id: ID },
+      withCredentials: true,
+    });
+    console.log(response);
     return response;
   } catch (error) {
+    console.log(error);
     return error.response;
   }
 };

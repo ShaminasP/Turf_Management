@@ -13,7 +13,20 @@ mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MongoUrl, () =>
   console.log("Connected to Mongoose")
 );
-app.use(cors());
+
+
+const corsOptions = {
+  origin: 'http://localhost:1234',
+  methods: 'GET,POST,PATCH,PUT,DELETE', 
+  preflightContinue: true,
+  optionsSuccessStatus: 200,
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
+
+
 app.use("/", userRouter);
 app.use("/turf", turfRoute);
 app.use("/admin", adminRoute);

@@ -34,3 +34,18 @@ export const viewTurfByOwner = async (data) => {
     return error.response;
   }
 };
+
+export const toUpdateTufDetails = async (token, data) => {
+  alert(token);
+  console.log(data);
+  try {
+    const response = await Axiosuser.put(
+      "/turf/update",
+      { data },
+      { headers: { Authorization: token } }
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
