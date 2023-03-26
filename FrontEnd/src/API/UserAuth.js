@@ -53,3 +53,15 @@ export const toGetTurfBySearch = async (data) => {
     return error.response;
   }
 };
+
+export const toBookTurf = async (turfID, date, time, token) => {
+  alert(token);
+  try {
+    const response = await Axiosuser.post("/booking", {turfID, date, time}, {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

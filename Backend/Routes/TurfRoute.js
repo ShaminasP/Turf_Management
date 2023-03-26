@@ -18,6 +18,6 @@ router.post("/register", authVerify, upload.array("image", 4), turf_register);
 
 router.get("/viewturfowner", authVerify, toGetTurf);
 
-router.put("/update", toUpdateTufDetails);
+router.put("/update",authVerify,   toUpdateTufDetails);
 
 export default router;

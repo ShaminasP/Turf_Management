@@ -94,6 +94,7 @@ export const toGetTurf = async (req, res) => {
 };
 
 export const toUpdateTufDetails = async (req, res) => {
+  console.log(req.body);
   try {
     const {
       _id,
@@ -103,16 +104,14 @@ export const toUpdateTufDetails = async (req, res) => {
       contactNumber,
       closingHour,
       openingHour,
-      fees,
+      fee,
     } = req.body.data;
     const updateDataturf = await TurfModel.findByIdAndUpdate(_id, {
       contactNumber: contactNumber,
-      openingHour: openingTime,
-      closingHour: closingTime,
-      fee: fees,
+      openingHour: openingHour.toString(),
+      closingHour: closingHour.toString(),
+      fee: fee.toString(),
     });
-    console.log(req.body);
-    console.log(updateDataturf);
   } catch (error) {
     console.log(error);
     res.status(500).json(error?.response?.data?.message);

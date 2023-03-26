@@ -121,7 +121,7 @@ const TurfPorfile = () => {
                 {editMode ? (
                   <input
                     className="px-3 bg-gray-100  "
-                    type="text"
+                    type="time"
                     value={data.openingHour}
                     onChange={(e) =>
                       setData((prevData) => ({
@@ -148,7 +148,7 @@ const TurfPorfile = () => {
                 {editMode ? (
                   <input
                     className="px-3 bg-gray-100  "
-                    type="text"
+                    type="time"
                     value={data.closingHour}
                     onChange={(e) =>
                       setData((prevData) => ({

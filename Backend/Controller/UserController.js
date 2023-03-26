@@ -1,9 +1,11 @@
 import UserModel from "../Model/UserModel.js";
 import TurfModel from "../Model/TurfModel.js";
+import BookingModel from "../Model/BookingModel.js";
 import { sendSms, veryfySms } from "../Helpers/Twilio.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import bookingModel from "../Model/BookingModel.js";
 dotenv.config();
 export const signUp = async (req, res) => {
   try {
@@ -78,5 +80,23 @@ export const toGetTurfByLocation = async (req, res) => {
   } catch (error) {
     res.status(500).json(error?.response?.data?.message);
     console.log(error.message);
+  }
+};
+
+export const toBookTurf = async (req, res) => {
+  try {
+    const { turfID, date, time } = req.body;
+    const userId = req.user.id;
+    const newBooking = await bookingModel.create({
+      user: userId,
+      turf: turfID,
+      bookDate: date,
+      time: time,
+    });
+
+    res.status(200).json(newBooking);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data?.message);
   }
 };
