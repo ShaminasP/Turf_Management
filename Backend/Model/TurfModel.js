@@ -56,6 +56,9 @@ const turfSchema = new mongoose.Schema({
       type: Boolean,
     },
   },
+  balance: {
+    type: String,
+  },
 });
 
 const TurfModel = new mongoose.model("Turfs", turfSchema);

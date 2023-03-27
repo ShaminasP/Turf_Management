@@ -15,7 +15,7 @@ const bookingSchema = new mongoose.Schema(
         },
         bookDate:
         {
-            type: Date,
+            type: String,
             required: true
         },
 
@@ -23,11 +23,11 @@ const bookingSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        // payment: {
-        //     type: String,
-        //     required: true,
-        //     default: 'Pending'
-        // },
+        payment: {
+            type: String,
+            required: true,
+            default: 'Pending'
+        },
     },
     {
         timestamps: true
@@ -38,3 +38,6 @@ const bookingModel = mongoose.model('bookings', bookingSchema)
 
 
 export default bookingModel
+
+
+

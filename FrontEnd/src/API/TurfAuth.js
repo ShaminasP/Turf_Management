@@ -2,7 +2,6 @@ import { Axiosuser } from "./axiosinstance";
 
 export const turfRegister = async (data, token) => {
   try {
-    console.log(data);
     const response = await Axiosuser.post("/turf/register", data, {
       headers: { "Content-Type": "multipart/form-data", Authorization: token },
     });
@@ -36,8 +35,7 @@ export const viewTurfByOwner = async (data) => {
 };
 
 export const toUpdateTufDetails = async (token, data) => {
-  alert(token);
-  console.log(data);
+ 
   try {
     const response = await Axiosuser.put(
       "/turf/update",

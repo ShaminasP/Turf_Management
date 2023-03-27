@@ -55,13 +55,45 @@ export const toGetTurfBySearch = async (data) => {
 };
 
 export const toBookTurf = async (turfID, date, time, token) => {
-  alert(token);
   try {
-    const response = await Axiosuser.post("/booking", {turfID, date, time}, {
-      headers: { Authorization: token },
+    const response = await Axiosuser.post(
+      "/booking",
+      { turfID, date, time },
+      {
+        headers: { Authorization: token },
+      }
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const togetBookingslots = async (date, ID) => {
+  try {
+    const response = await Axiosuser.get("/bookingslots", {
+      params: { date, ID },
     });
     return response;
   } catch (error) {
     return error.response;
   }
 };
+
+export const payementAction = async (bookingId) => {
+  try {
+    const response = await Axiosuser.get("/payment", { params: { bookingId } });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error?.response;
+  }
+};
+
+
+export const bookingSuccess = async (id) => {
+  try {
+      const response = await Axiosuser.patch('/booking-success', { id })
+      return response
+  } catch (error) { return error?.response }
+}

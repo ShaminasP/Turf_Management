@@ -1,6 +1,7 @@
 import UserModel from "../Model/UserModel.js";
 import TurfModel from "../Model/TurfModel.js";
 import BookingModel from "../Model/BookingModel.js";
+import { paymentStripe } from "../Helpers/Stripe.js";
 import { sendSms, veryfySms } from "../Helpers/Twilio.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -72,7 +73,6 @@ export const login = async (req, res) => {
 
 export const toGetTurfByLocation = async (req, res) => {
   try {
-    console.log(req.params.data);
     const turfs = await TurfModel.find({ location: req.params.data });
     if (turfs.length === 0)
       return res.status(404).json({ message: "no turfs found" });
@@ -83,20 +83,76 @@ export const toGetTurfByLocation = async (req, res) => {
   }
 };
 
+export const togetBookingslots = async (req, res) => {
+  const ID = req?.query?.ID;
+  let date = req?.query?.date;
+  date = new Date(date).toLocaleDateString();
+  try {
+    const Booking = await BookingModel.find({ turf: ID, bookDate: date });
+    return res.status(200).json(Booking);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data?.message);
+  }
+};
+
 export const toBookTurf = async (req, res) => {
   try {
     const { turfID, date, time } = req.body;
     const userId = req.user.id;
+    const bookDate = new Date(date).toLocaleDateString();
     const newBooking = await bookingModel.create({
       user: userId,
       turf: turfID,
-      bookDate: date,
-      time: time,
+      bookDate,
+      time,
     });
 
     res.status(200).json(newBooking);
   } catch (error) {
     console.log(error);
     res.status(500).json(error?.response?.data?.message);
+  }
+};
+
+export const toProceedPayment = async (req, res) => {
+  try {
+    console.log("working...");
+    const bookingId = req.query.bookingId;
+    const result = await bookingModel
+      .findById(bookingId)
+      .populate("user")
+      .populate("turf");
+
+    console.log(result);
+
+    const response = await paymentStripe(
+      result?.turf.fee,
+      result?.turf.turfName,
+      result?.user.email,
+      bookingId
+    );
+    console.log(response, "payment");
+    res.status(200).json({ response });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data?.message);
+  }
+};
+
+export const bookingSuccess = async (req, res) => {
+  const ID = req.body.id;
+  try {
+    const result = await bookingModel
+      .findById(ID)
+      .populate("user")
+      .populate("turf");
+    if (result) {
+      await bookingModel.findByIdAndUpdate(ID, { payment: "Success" });
+      res.status(200).json(result);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
   }
 };
