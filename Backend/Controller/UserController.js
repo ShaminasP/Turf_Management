@@ -156,3 +156,16 @@ export const bookingSuccess = async (req, res) => {
     res.status(500).json(error?.response?.data);
   }
 };
+
+export const toViewProfile = async (req, res) => {
+  try {
+    const ID = req.user;
+    console.log(ID);
+    const user = await UserModel.findById(ID);
+    if (!user) return res.status(401).json({ message: "User not found" });
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
+  }
+};

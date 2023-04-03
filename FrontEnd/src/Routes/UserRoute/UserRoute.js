@@ -6,6 +6,7 @@ import SignupPage from "../../Pages/User/SignupPage";
 import TurfsPage from "../../Pages/User/TurfsPage";
 import Booking from "../../Pages/User/Booking";
 import Success from "../../Components/Users/SingleTurf/Success";
+import ProfilePage from "../../Pages/User/Profile";
 const Admin = () => {
   return (
     <>
@@ -17,6 +18,7 @@ const Admin = () => {
         <Route path="/turf_details" element={<SingleTurf />} />
         <Route path="/Booking" element={<Booking />} />
         <Route path="/success/:id" element={<Success />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </>
   );

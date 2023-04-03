@@ -8,7 +8,7 @@ import {
   toBookTurf,
   togetBookingslots,
   toProceedPayment,
-  bookingSuccess
+  bookingSuccess,toViewProfile
 } from "../Controller/UserController.js";
 
 import { toViewTurfs, toViewTurf } from "../Controller/TurfController.js";
@@ -34,5 +34,7 @@ router.post("/booking", authVerify, toBookTurf);
 router.get('/payment',toProceedPayment);
 
 router.patch('/booking-success', bookingSuccess)
+
+router.get ('/profile',authVerify,toViewProfile);
 
 export default router;
