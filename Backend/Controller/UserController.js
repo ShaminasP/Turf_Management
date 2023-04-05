@@ -159,11 +159,40 @@ export const bookingSuccess = async (req, res) => {
 
 export const toViewProfile = async (req, res) => {
   try {
-    const ID = req.user;
-    console.log(ID);
-    const user = await UserModel.findById(ID);
+    const ID = req.user.id;
+    const user = await UserModel.findById(ID, { __v: 0 });
     if (!user) return res.status(401).json({ message: "User not found" });
     res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
+  }
+};
+
+export const toUpdateProfile = async (req, res) => {
+  try {
+    const ID = req.user.id;
+    console.log(ID);
+    const { name, email, mobile } = req?.body?.data;
+    if (!name || !email || !mobile)
+      return res.status(401).json({ message: "field not found" });
+    const User = await UserModel.findByIdAndUpdate(ID, { name, email, mobile });
+    console.log(User);
+    if (!User) return res.status(401).json({ message: "User not found" });
+    console.log("NILL");
+    res.status(200).json(User);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
+  }
+};
+
+export const toViewBookingDetails = async (req, res) => {
+  try {
+    const user = req.user.id;
+    const bookings = await bookingModel.find({user}).populate('turf')
+    console.log(bookings);
+    res.status(200).json(bookings);
   } catch (error) {
     console.log(error);
     res.status(500).json(error?.response?.data);

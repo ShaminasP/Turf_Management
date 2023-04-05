@@ -90,10 +90,49 @@ export const payementAction = async (bookingId) => {
   }
 };
 
-
 export const bookingSuccess = async (id) => {
   try {
-      const response = await Axiosuser.patch('/booking-success', { id })
-      return response
-  } catch (error) { return error?.response }
-}
+    const response = await Axiosuser.patch("/booking-success", { id });
+    return response;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const toViewProfile = async (token) => {
+  try {
+    const response = await Axiosuser.get("/profile", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const toUpdateProfile = async (token, data) => {
+  alert(data);
+  try {
+    const response = await Axiosuser.post(
+      "/profile",
+      { data },
+      {
+        headers: { Authorization: token },
+      }
+    );
+    return response;
+  } catch (error) {
+    return error?.response;
+  }
+};
+
+export const toGetBookings = async (token) => {
+  try {
+    const response = await Axiosuser.get("/booking", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error?.response;
+  }
+};

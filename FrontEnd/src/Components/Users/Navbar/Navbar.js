@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <>
       {" "}
-      <div className="shadow-lg w-full fixed top-0 left-0">
+      <div className="z-20 shadow-lg w-full fixed top-0 left-0">
         <div className="lg:flex items-center justify-between bg-red-700 py-4 lg:px-10 px-7">
           <div
             className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
@@ -92,6 +92,14 @@ const Navbar = () => {
                       
                     >
                       DASHBOARD
+                    </Link>
+                  </li><li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link 
+                      to={"/turf/bookings"}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                      
+                    >
+                      BOOKINGS
                     </Link>
                   </li>
                   <li className="text-sm lg:ml-8 lg:my-0 my-7">

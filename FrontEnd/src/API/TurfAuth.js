@@ -11,17 +11,6 @@ export const turfRegister = async (data, token) => {
   }
 };
 
-// export const turfLogin = async (data) => {
-//   try {
-//     const response = await Axiosuser.post("/turf/login", data, {
-//       headers: { "Content-Type": "multipart/form-data" },
-//     });
-//     return;
-//   } catch (error) {
-//     return error.response;
-//   }
-// };
-
 export const viewTurfByOwner = async (data) => {
   try {
     const response = await Axiosuser.get("/turf/viewturfowner", {
@@ -35,13 +24,23 @@ export const viewTurfByOwner = async (data) => {
 };
 
 export const toUpdateTufDetails = async (token, data) => {
- 
   try {
     const response = await Axiosuser.put(
       "/turf/update",
       { data },
       { headers: { Authorization: token } }
     );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const toGetBookings = async (token) => {
+  try {
+    const response = await Axiosuser.get("/turf/booking", {
+      headers: { Authorization: token },
+    });
     return response;
   } catch (error) {
     return error.response;

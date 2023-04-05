@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
   role:{
     type: String,
     required: true,
+  },
+  profile:{
+    type:Array,
   }
 });
 const UserModel = mongoose.model("User", userSchema);

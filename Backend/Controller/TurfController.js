@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import TurfModel from "../Model/TurfModel.js";
 import UserModel from "../Model/UserModel.js";
+import bookingModel from "../Model/BookingModel.js";
 
 export const turf_register = async (req, res) => {
   console.log(req.files);
@@ -38,28 +39,6 @@ export const turf_register = async (req, res) => {
     res.status(500).json(error?.response?.data?.message);
   }
 };
-
-// export const turf_login = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const turf = await TurfModel.findOne({ email: email });
-//     if (!turf) {
-//       return res
-//         .status(404)
-//         .json({ message: "Turf is not registered with this email" });
-//     }
-//     const isPasswordMatch = await bcrypt.compare(password, turf.password);
-//     if (!isPasswordMatch) {
-//       return res.status(401).json({ message: "Incorrect password" });
-//     }
-//     const token = jwt.sign({ id: turf._id }, process.env.JWT_SECRET);
-//     const name = turf.turfName;
-//     res.json({ token, name });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json(error?.response?.data?.message);
-//   }
-// };
 
 export const toViewTurfs = async (req, res) => {
   try {
@@ -115,5 +94,19 @@ export const toUpdateTufDetails = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json(error?.response?.data?.message);
+  }
+};
+
+export const toGetBooking = async (req, res) => {
+  try {
+    const turfAdmin = req.user.id;
+    const turf = await TurfModel.findOne({ turfAdmin });
+    if (!turf) return res.status(404).json({ message: "invalid" });
+    const turfId = turf?._id;
+    const bookings = await bookingModel.find({ turf: turfId }).populate("user")
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
   }
 };
