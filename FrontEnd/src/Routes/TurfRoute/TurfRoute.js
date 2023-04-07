@@ -3,6 +3,7 @@ import TurfRegisterPage from "../../Pages/Turf/TurfRegistrationPage";
 import Dashboard from "../../Pages/Turf/DashbordPage";
 import ProfilePage from "../../Pages/Turf/ProfilePage";
 import BookingPage from "../../Pages/Turf/Bookings";
+import ReportPage from "../../Pages/Turf/ReportPage";
 
 
 const User = () => {
@@ -13,6 +14,7 @@ const User = () => {
         <Route path="/register" element={<TurfRegisterPage />} />
         <Route path="/bookings" element={<BookingPage />} />
         <Route path="/profile" element={<ProfilePage/>}/>
+        <Route path='/reports' element={<ReportPage/>} />
       </Routes>
     </>
   );

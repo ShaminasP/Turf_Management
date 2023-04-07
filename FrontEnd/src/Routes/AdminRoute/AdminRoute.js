@@ -4,6 +4,8 @@ import Dashboard from "../../Pages/Admin/Dashbord";
 import LoginPage from "../../Pages/Admin/LoginPage";
 import TurfList from "../../Pages/Admin/TurfList";
 import UserList from "../../Pages/Admin/UserList";
+import SalesReportPage from "../../Pages/Admin/SalesReport";
+
 
 const AdminRoute = () => {
   const { token } = useSelector((state) => state.admin);
@@ -15,6 +17,8 @@ const AdminRoute = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/turfs" element={<TurfList />} />
+        <Route path="/salesreports" element={<SalesReportPage />} />
+
       </Routes>
     </>
   );

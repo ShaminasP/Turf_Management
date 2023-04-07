@@ -10,7 +10,6 @@ function Login() {
   const Dispatch = useDispatch();
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  console.log(formData);
   const [error, setError] = useState("");
   const [dataError, setDataError] = useState({});
 
@@ -33,7 +32,7 @@ function Login() {
     if (!validateForm()) return;
     const response = await adminLogin(formData);
     if (response.status === 200) {
-      alert()
+      console.log(response.data);
       Dispatch(setAdmin(response.data));
       Navigate("/admin");
     }

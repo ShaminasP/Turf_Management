@@ -45,7 +45,7 @@ const turfSchema = new mongoose.Schema({
     type: Array,
   },
   fee: {
-    type: String,
+    type: Number,
     // required: true,
   },
   events: {

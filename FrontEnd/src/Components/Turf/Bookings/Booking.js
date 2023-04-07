@@ -28,15 +28,15 @@ const Bookings = () => {
         </thead>
         <tbody>
           {booking.map((booked, index) => (
-            <tr>
+            <tr key={index}>
               <th>{booked?._id}</th>
               <td>{booked?.user?.name}</td>
               <td>{booked?.bookDate}</td>
               <td>{booked?.time}</td>
               {booked.payment === "Success" ? (
-                <button className="btn-success">{booked?.payment}</button>
+                <button className="btn-success p-2">{booked?.payment}</button>
               ) : (
-                <button className="btn-warning">{booked?.payment}</button>
+                <button className="btn-warning p-2">{booked?.payment}</button>
               )}
             </tr>
           ))}

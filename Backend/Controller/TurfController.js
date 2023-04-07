@@ -103,9 +103,40 @@ export const toGetBooking = async (req, res) => {
     const turf = await TurfModel.findOne({ turfAdmin });
     if (!turf) return res.status(404).json({ message: "invalid" });
     const turfId = turf?._id;
-    const bookings = await bookingModel.find({ turf: turfId }).populate("user")
+    const bookings = await bookingModel.find({ turf: turfId }).populate("user");
     res.status(200).json(bookings);
   } catch (error) {
+    console.log(error);
+    res.status(500).json(error?.response?.data);
+  }
+};
+
+export const toGetBookingReport = async (req, res) => {
+  try {
+    const turfAdmin = req.user.id;
+    const turf = await TurfModel.findOne({ turfAdmin });
+    if (!turf) return res.status(404).json({ message: "invalid" });
+    const ID = turf._id;
+
+    const bookings = await bookingModel.aggregate([
+      {
+        $match: {
+          turf: ID,
+          payment: "Success",
+        },
+      },
+      {
+        $group: {
+          _id: "$bookDate",
+          totalPrice: { $sum: "$price" },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+    res.status(200).json(bookings)
+
+  } catch (error) { 
     console.log(error);
     res.status(500).json(error?.response?.data);
   }

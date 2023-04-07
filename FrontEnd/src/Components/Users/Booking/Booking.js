@@ -9,8 +9,7 @@ function Booking() {
  
 
   return (
- <>
- 
+ <> 
  
  </>
   )

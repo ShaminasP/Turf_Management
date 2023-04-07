@@ -99,6 +99,8 @@ export const togetBookingslots = async (req, res) => {
 export const toBookTurf = async (req, res) => {
   try {
     const { turfID, date, time } = req.body;
+    const turf = await TurfModel.findById(turfID);
+    const price = turf?.fee;
     const userId = req.user.id;
     const bookDate = new Date(date).toLocaleDateString();
     const newBooking = await bookingModel.create({
@@ -106,6 +108,7 @@ export const toBookTurf = async (req, res) => {
       turf: turfID,
       bookDate,
       time,
+      price,
     });
 
     res.status(200).json(newBooking);
@@ -189,9 +192,13 @@ export const toUpdateProfile = async (req, res) => {
 
 export const toViewBookingDetails = async (req, res) => {
   try {
+    const date = new Date();
     const user = req.user.id;
-    const bookings = await bookingModel.find({user}).populate('turf')
-    console.log(bookings);
+    const bookings = await bookingModel.find({ user }).populate("turf");
+    const UpcomingBookings = await bookingModel
+      .find({ user, bookDate: { $gt: date } })
+      .populate("turf");
+    console.log(UpcomingBookings);
     res.status(200).json(bookings);
   } catch (error) {
     console.log(error);

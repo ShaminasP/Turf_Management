@@ -8,6 +8,7 @@ import {
   toGetBooking,
   toGetTurf,
   toUpdateTufDetails,
+  toGetBookingReport
 } from "../Controller/TurfController.js";
 
 
@@ -20,5 +21,7 @@ router.get("/viewturfowner", authVerify, toGetTurf);
 router.put("/update",authVerify,   toUpdateTufDetails);
 
 router.get('/booking',authVerify, toGetBooking);
+
+router.get('/booking-report',authVerify, toGetBookingReport);
 
 export default router;

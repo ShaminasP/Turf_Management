@@ -13,7 +13,6 @@ function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [dataError, setDataError] = useState({});
-  console.log(dataError);
 
   const validateForm = () => {
     const errors = FormValidate(formData);
@@ -40,12 +39,17 @@ function Login() {
           token: data.data.token,
         })
       );
+      window.localStorage.setItem("token", data.data.token);
+      window.localStorage.setItem("name", data.data.name);
+
       Navigate("/");
     }
     if (data.status === 200 && data?.data?.role === "turfAdmin") {
       const turf = await viewTurfByOwner(data.data.token);
       Dispatch(setTurf(turf?.data?.turf));
       Dispatch(setToken({ token: data?.data?.token }));
+      window.localStorage.setItem("token", data.data.token);
+      window.localStorage.setItem("turf", turf?.data?.turf);
       Navigate("/turf");
     }
     if (data?.status === 401) return setError(data?.data?.message);
@@ -66,7 +70,7 @@ function Login() {
           <form onSubmit={handleSubmit} className="space-y-12 ng- ng- ng-">
             <div className="space-y-4">
               <div>
-                <label htmlfor="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2 text-sm">
                   Email address
                 </label>
                 <input

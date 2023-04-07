@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { resetToken, setToken } from "../../../Store/userSlice";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const isUser = Boolean(useSelector((state) => state.user.token));
   const { name } = useSelector((state) => state.user);
   const { turf } = useSelector((state) => state.user);
   const [currentUser, setCurrentUser] = useState(null);
+  const token = localStorage.getItem("token");
+  const Name = localStorage.getItem("name");
+  const Turf= localStorage.getItem("turf");
+  const Dispatch = useDispatch();
 
+  if (Name && token){
+    Dispatch(
+      setToken({
+        name: Name,
+        token: token,
+      })
+    );
+  }
+
+ 
+ 
   useEffect(() => {
     if (turf) {
       setCurrentUser(turf.turfName);
@@ -33,6 +47,13 @@ const Navbar = () => {
     { name: "RGISTER TURF", link: "/turf/register" },
   ];
   let [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    Dispatch(resetToken());
+    setOpen(false);
+  };
 
   return (
     <>
@@ -86,39 +107,46 @@ const Navbar = () => {
               {currentUser && turf ? (
                 <>
                   <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link 
+                    <Link
                       to={"/turf"}
                       className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                      
                     >
                       DASHBOARD
-                    </Link>
-                  </li><li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link 
-                      to={"/turf/bookings"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                      
-                    >
-                      BOOKINGS
                     </Link>
                   </li>
                   <li className="text-sm lg:ml-8 lg:my-0 my-7">
                     <Link
+                      to={"/turf/bookings"}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                    >
+                      BOOKINGS
+                    </Link>
+                  </li>
+
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link
+                      to={"/turf/reports"}
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                    >
+                      BOOKING REPORT
+                    </Link>
+                  </li>
+
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <Link
                       to={"/turf/profile"}
                       className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-
                     >
                       {currentUser}
                     </Link>
                   </li>
                   <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={""}
+                    <button
                       className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-
+                      onClick={handleLogout}
                     >
                       LOG OUT
-                    </Link>
+                    </button>
                   </li>
                 </>
               ) : (
@@ -135,21 +163,22 @@ const Navbar = () => {
                         {link.name}
                       </Link>
                     </li>
-                  ))}<li className="text-sm lg:ml-8 lg:my-0 my-7">
-                  <Link
-                    to={"/profile"}
-                    className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                  >
-                  {currentUser}
-                  </Link>
-                </li>
+                  ))}
                   <li className="text-sm lg:ml-8 lg:my-0 my-7">
                     <Link
-                      to={""}
+                      to={"/profile"}
                       className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
                     >
-                      LOG OUT
+                      {currentUser}
                     </Link>
+                  </li>
+                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                    <button
+                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                      onClick={handleLogout}
+                    >
+                      LOG OUT
+                    </button>
                   </li>
                 </>
               )}

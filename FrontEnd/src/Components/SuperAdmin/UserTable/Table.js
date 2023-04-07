@@ -50,7 +50,7 @@ const Table = () => {
               </thead>
               <tbody>
                 {data.map((user) => (
-                  <tr className="border-b border-opacity-20 border-gray-300 bg-gray-50 text-center">
+                  <tr key={user._id} className="border-b border-opacity-20 border-gray-300 bg-gray-50 text-center">
                     <td className="p-3">
                       <p>{user.name}</p>
                     </td>

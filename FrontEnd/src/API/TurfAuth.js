@@ -12,6 +12,7 @@ export const turfRegister = async (data, token) => {
 };
 
 export const viewTurfByOwner = async (data) => {
+  console.log(data);
   try {
     const response = await Axiosuser.get("/turf/viewturfowner", {
       headers: { Authorization: data },
@@ -39,6 +40,17 @@ export const toUpdateTufDetails = async (token, data) => {
 export const toGetBookings = async (token) => {
   try {
     const response = await Axiosuser.get("/turf/booking", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const toGetBookingReport = async (token) => {
+  try {
+    const response = await Axiosuser.get("/turf/booking-report", {
       headers: { Authorization: token },
     });
     return response;

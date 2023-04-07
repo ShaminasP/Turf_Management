@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import UserModel from "../Model/UserModel.js";
 import TurfModel from "../Model/TurfModel.js";
+import bookingModel from "../Model/BookingModel.js";
 export const adminLogin = async (req, res) => {
   const adminEmail = process.env.ADMIN_EMAIL;
   const adminPassword = process.env.ADMIN_PASSWORD;
@@ -67,6 +68,35 @@ export const toGetAllTurfs = async (req, res) => {
     if (turfs.length === 0)
       return res.status(404).json({ message: "Turfs not found" });
     res.status(200).json(turfs);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const toViewReports = async (req, res) => {
+  try {
+    const report = await bookingModel.aggregate([
+      { $match: { payment: "Success" } },
+      {
+        $lookup: {
+          from: "turfs",
+          localField: "turf",
+          foreignField: "_id",
+          as: "turf",
+        },
+      },
+      {
+        $group: {
+          _id: "$turf._id",
+          name: { $first: "$turf.turfName" },
+          totalPrice: { $sum: "$price" },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { totalPrice: 1 } },
+    ]);
+    res.status(200).json(report)
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

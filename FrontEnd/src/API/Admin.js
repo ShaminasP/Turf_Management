@@ -32,7 +32,6 @@ export const getRequestedTurf = async (data) => {
 };
 
 export const changeStatus = async (ID, token) => {
- 
   try {
     const response = await Axiosuser.patch("/admin/status", {
       ID,
@@ -61,6 +60,17 @@ export const deleteRequest = async (ID, token) => {
 export const getUsers = async (token) => {
   try {
     const response = await Axiosuser.get("/admin/users", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getSalesReport = async (token) => {
+  try {
+    const response = await Axiosuser.get("/admin/reports", {
       headers: { Authorization: token },
     });
     return response;

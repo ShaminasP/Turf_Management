@@ -1,7 +1,6 @@
 import { deleteRequest, getTurfs } from "../../../API/Admin";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { changeStatus } from "../../../API/Admin";
 
 import AlertMessage from "../../AlertMessage/AlertMessage";
 
@@ -10,6 +9,7 @@ const Table = () => {
 
   const [error, setError] = useState("");
   const [turfs, setTurfs] = useState([]);
+  console.log(turfs);
 
   const fetchTurfs = async () => {
     const response = await getTurfs(token);
@@ -46,14 +46,14 @@ const Table = () => {
                   <th className="p-3">Name </th>
                   <th className="p-3">Location</th>
                   <th className="p-3">Contact Number</th>
-                  <th className="p-3 ">ACTION</th>
+                  <th className="p-3 ">Image</th>
                 </tr>
               </thead>
               <tbody>
                 {turfs.map((turf) => (
                   <tr
                     key={turf._id}
-                    className="border-b border-opacity-20 border-gray-300 bg-gray-50 text-center"
+                    className="border-b border-opacity-20 border-gray-300 bg-gray-50 text-center "
                   >
                     <td className="p-3">
                       <p>{turf.turfName}</p>
@@ -63,6 +63,13 @@ const Table = () => {
                     </td>
                     <td className="p-3">
                       <p>{turf.contactNumber}</p>
+                    </td>{" "}
+                    <td className="p-3">
+                      <img
+                        className="h-14 w-20 items-center"
+                        src={turf?.images[0]?.location}
+                        alt={turf?.turfName}
+                      />
                     </td>
                   </tr>
                 ))}

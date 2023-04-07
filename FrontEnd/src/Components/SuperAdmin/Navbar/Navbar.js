@@ -4,23 +4,27 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const isUser = Boolean(useSelector((state) => state.user.token));
+  const { token } = useSelector((state) => state.admin);
 
   let Links = [
     { name: "DASHBOARD", link: "/admin" },
     { name: "REQUESTED TURFS", link: "/admin/" },
     { name: "TURFS", link: "/admin/turfs" },
     { name: "USERS", link: "/admin/users" },
+    {name:"SALES REPORT",link:'/admin/salesreports' },
     { name: "LOGIN", link: "/admin/login" },
   ];
+
+  if (token) {
+    Links.splice(5, 1, { name: "LOGOUT", link: "/admin/logout" });
+  }
 
   let [open, setOpen] = useState(false);
 
   return (
     <>
       {" "}
-      <div className="shadow-lg w-full fixed top-0 left-0">
+      <div className="shadow-lg w-full fixed z-20 top-0 left-0">
         <div className="lg:flex items-center justify-between bg-red-700 py-4 lg:px-10 px-7">
           <div
             className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
