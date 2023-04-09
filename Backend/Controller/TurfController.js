@@ -5,7 +5,6 @@ import UserModel from "../Model/UserModel.js";
 import bookingModel from "../Model/BookingModel.js";
 
 export const turf_register = async (req, res) => {
-  console.log(req.files);
 
   const { name, email, location, mobile } = req.body;
   if (!name || !email || !location || !mobile) {
@@ -18,7 +17,6 @@ export const turf_register = async (req, res) => {
       .json({ message: "Turf is already registered with this email" });
 
   const img = req?.files;
-  console.log(img);
   try {
     const newTurf = new TurfModel({
       turfName: name,
@@ -73,7 +71,6 @@ export const toGetTurf = async (req, res) => {
 };
 
 export const toUpdateTufDetails = async (req, res) => {
-  console.log(req.body);
   try {
     const {
       _id,

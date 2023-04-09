@@ -35,6 +35,7 @@ function Login() {
       console.log(response.data);
       Dispatch(setAdmin(response.data));
       Navigate("/admin");
+      window.localStorage.setItem("token", response.data)
     }
   };
 

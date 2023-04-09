@@ -120,14 +120,12 @@ export const toBookTurf = async (req, res) => {
 
 export const toProceedPayment = async (req, res) => {
   try {
-    console.log("working...");
     const bookingId = req.query.bookingId;
     const result = await bookingModel
       .findById(bookingId)
       .populate("user")
       .populate("turf");
 
-    console.log(result);
 
     const response = await paymentStripe(
       result?.turf.fee,
@@ -135,7 +133,6 @@ export const toProceedPayment = async (req, res) => {
       result?.user.email,
       bookingId
     );
-    console.log(response, "payment");
     res.status(200).json({ response });
   } catch (error) {
     console.log(error);

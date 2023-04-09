@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setAdmin } from "../../../Store/AdminSlice";
+import { resetAdmin } from "../../../Store/AdminSlice";
 
 const Navbar = () => {
   const { token } = useSelector((state) => state.admin);
-
+  const adminToken = window.localStorage.getItem("token");
+  if (adminToken) {
+    const Dispatch = useDispatch();
+    Dispatch(setAdmin(adminToken));
+  }
   let Links = [
     { name: "DASHBOARD", link: "/admin" },
     { name: "REQUESTED TURFS", link: "/admin/" },
     { name: "TURFS", link: "/admin/turfs" },
     { name: "USERS", link: "/admin/users" },
-    {name:"SALES REPORT",link:'/admin/salesreports' },
-    { name: "LOGIN", link: "/admin/login" },
+    { name: "SALES REPORT", link: "/admin/salesreports" },
   ];
-
-  if (token) {
-    Links.splice(5, 1, { name: "LOGOUT", link: "/admin/logout" });
-  }
+  const Navigate = useNavigate();
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+    resetAdmin();
+    Navigate('/admin/login');
+  };
 
   let [open, setOpen] = useState(false);
 
@@ -80,6 +86,25 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+            {token ? (
+              <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                <button
+                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                  onClick={handleLogout}
+                >
+                  LOG OUT
+                </button>
+              </li>
+            ) : (
+              <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                <Link
+                  to={"/admin/login"}
+                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                >
+                  LOGIN
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
