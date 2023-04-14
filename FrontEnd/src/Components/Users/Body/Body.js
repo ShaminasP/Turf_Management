@@ -6,7 +6,7 @@ function Body() {
   return (
     <div className="flex justify-evenly items-end bg-white p-10 md:p-24 w-full h-screen lg:flex-wrap flex-wrap-reverse">
       <div className="md:w-[65%] lg:w-[37%] xl:w-[30%] mt-5 lg:mt-8">
-        <h1 className="text-5xl text-black  font-extrabold">
+        <h1 className="text-4xl text-black  font-extrabold">
           BOOK YOUR SPOT PLAY YOUR SPORT
         </h1>
         <div className="flex w-full  lg:justify-between justify-evenly flex-wrap pt-5 lg:pt-8">

@@ -59,7 +59,7 @@ function Login() {
     <>
       <div className="absolute bg-white w-full h-screen top-0 left-0 opacity-80 z-[-1]" />
       <div className="flex justify-center items-center h-screen z-10">
-        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10  border-2  text-black">
+        <div className="flex flex-col p-6 rounded-md sm:p-10  border-2  text-black">
           <div className="mb-8 text-center">
             <h1 className="my-3 text-4xl font-bold">Login</h1>
             <p className="text-sm text-gray-400">

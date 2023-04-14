@@ -13,7 +13,7 @@ const Navbar = () => {
   }
   let Links = [
     { name: "DASHBOARD", link: "/admin" },
-    { name: "REQUESTED TURFS", link: "/admin/" },
+    { name: "REQUESTED TURFS", link: "/admin/requested" },
     { name: "TURFS", link: "/admin/turfs" },
     { name: "USERS", link: "/admin/users" },
     { name: "SALES REPORT", link: "/admin/salesreports" },

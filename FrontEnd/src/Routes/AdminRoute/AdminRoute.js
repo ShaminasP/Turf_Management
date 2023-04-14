@@ -5,6 +5,7 @@ import LoginPage from "../../Pages/Admin/LoginPage";
 import TurfList from "../../Pages/Admin/TurfList";
 import UserList from "../../Pages/Admin/UserList";
 import SalesReportPage from "../../Pages/Admin/SalesReport";
+import RequestedTurf from "../../Pages/Admin/RequestedTurf";
 
 
 const AdminRoute = () => {
@@ -18,6 +19,7 @@ const AdminRoute = () => {
         <Route path="/users" element={<UserList />} />
         <Route path="/turfs" element={<TurfList />} />
         <Route path="/salesreports" element={<SalesReportPage />} />
+        <Route path="/requested" element={<RequestedTurf/>}/>
 
       </Routes>
     </>

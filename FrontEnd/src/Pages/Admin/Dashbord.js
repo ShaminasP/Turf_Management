@@ -1,11 +1,11 @@
-import Navbar from "../../Components/SuperAdmin/Navbar/Navbar"
-import Table from "../../Components/SuperAdmin/Table/TurfTable"
-const Dashboard=()=>{
-    return(
-        <>
-        <Navbar/>
-        <Table/>
-        </>
-    )
-}
-export default Dashboard
+import Navbar from "../../Components/SuperAdmin/Navbar/Navbar";
+import DashboardPage from "../../Components/SuperAdmin/Dashboard/Dashboard";
+const Dashboard = () => {
+  return (
+    <>
+      <Navbar />
+      <DashboardPage />
+    </>
+  );
+};
+export default Dashboard;

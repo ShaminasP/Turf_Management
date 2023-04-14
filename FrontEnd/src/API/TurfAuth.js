@@ -12,7 +12,6 @@ export const turfRegister = async (data, token) => {
 };
 
 export const viewTurfByOwner = async (data) => {
-  console.log(data);
   try {
     const response = await Axiosuser.get("/turf/viewturfowner", {
       headers: { Authorization: data },
