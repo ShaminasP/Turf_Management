@@ -8,7 +8,7 @@ import {
   toGetBooking,
   toGetTurf,
   toUpdateTufDetails,
-  toGetBookingReport,
+  toGetBookingReport,toGetCounts
 } from "../Controller/TurfController.js";
 
 router.post("/register", authVerify, upload.array("image", 4), turf_register);
@@ -20,5 +20,7 @@ router.put("/update", authVerify, toUpdateTufDetails);
 router.get("/booking", authVerify, toGetBooking);
 
 router.get("/booking-report", authVerify, toGetBookingReport);
+
+router.get('/counts',authVerify,toGetCounts)
 
 export default router;

@@ -57,3 +57,14 @@ export const toGetBookingReport = async (token) => {
     return error.response;
   }
 };
+
+export const toGetBookingCount = async (token) => {
+  try {
+    const response = await Axiosuser.get("/turf/counts", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

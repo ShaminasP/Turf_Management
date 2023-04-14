@@ -11,11 +11,11 @@ import {
 
 const Barchart = ({ data }) => {
   return (
-    <div className="sm:p-10 w-full mt-10">
+    <div className="sm:p-10 w-full ">
       <h3 className="text-violet-100 text-3xl font-bold text-center my-5 pl-8 sm:pl-20">
       Daily Bookings
       </h3>
-      <ResponsiveContainer width="100%" height={400}>
+      <ResponsiveContainer width="100%" height={370}>
         <BarChart
           data={data}
           margin={{ top: 20, right: 20, left: 20, bottom: 20 }}

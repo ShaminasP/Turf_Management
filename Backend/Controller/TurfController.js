@@ -5,7 +5,6 @@ import UserModel from "../Model/UserModel.js";
 import bookingModel from "../Model/BookingModel.js";
 
 export const turf_register = async (req, res) => {
-
   const { name, email, location, mobile } = req.body;
   if (!name || !email || !location || !mobile) {
     res.status(401).json({ message: "fields cannot be blank" });
@@ -131,10 +130,22 @@ export const toGetBookingReport = async (req, res) => {
       },
       { $sort: { _id: 1 } },
     ]);
-    res.status(200).json(bookings)
-
-  } catch (error) { 
+    res.status(200).json(bookings);
+  } catch (error) {
     console.log(error);
+    res.status(500).json(error?.response?.data);
+  }
+};
+
+export const toGetCounts = async (req, res) => {
+  try {
+    const turfAdmin = req?.user?.id;
+    const Turf = await TurfModel.findOne({ turfAdmin });
+    if (!Turf) return res.status(400).json({ message: "No turf found" });
+    const turf = Turf?._id;
+    const bookingCount = await bookingModel.findOne({turf}).count();
+    res.status(200).json(bookingCount)
+  } catch (error) {
     res.status(500).json(error?.response?.data);
   }
 };

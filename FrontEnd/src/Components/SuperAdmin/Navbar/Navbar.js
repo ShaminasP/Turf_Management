@@ -22,7 +22,7 @@ const Navbar = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("token");
     resetAdmin();
-    Navigate('/admin/login');
+    Navigate("/admin/login");
   };
 
   let [open, setOpen] = useState(false);

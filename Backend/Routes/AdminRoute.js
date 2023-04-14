@@ -8,7 +8,7 @@ import {
   toAcceptTurfRequest,
   toViewUserList,
   toCancelTurfRequest,
-  toViewReports
+  toViewReports,toGetTheTotalCounts
 } from "../Controller/AdminController.js";
 
 import { authVerify } from "../Helpers/jwt.js";
@@ -26,5 +26,7 @@ router.get("/turfs", authVerify, toGetAllTurfs);
 router.get("/users", authVerify, toViewUserList);
 
 router.get('/reports', authVerify, toViewReports)
+
+router.get('/counts', authVerify, toGetTheTotalCounts);
 
 export default router;

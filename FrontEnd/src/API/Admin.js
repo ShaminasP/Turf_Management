@@ -78,3 +78,14 @@ export const getSalesReport = async (token) => {
     return error.response;
   }
 };
+
+export const getCounts = async (token) => {
+  try {
+    const response = await Axiosuser.get("/admin/counts", {
+      headers: { Authorization: token },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};

@@ -125,3 +125,16 @@ export const toViewReports = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const toGetTheTotalCounts = async (req, res) => {
+  try {
+    const [userCount, turfCount, bookingCount] = await Promise.all([
+      UserModel.find().count(),
+      TurfModel.find({ turfStatus: true }).count(),
+      bookingModel.find({ payment: "Success" }).count(),
+    ]);
+    res.status(200).json({ userCount, turfCount, bookingCount });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

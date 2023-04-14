@@ -35,7 +35,7 @@ function Login() {
       console.log(response.data);
       Dispatch(setAdmin(response.data));
       Navigate("/admin");
-      window.localStorage.setItem("token", response.data)
+      window.localStorage.setItem("token", response.data);
     }
   };
 
@@ -54,7 +54,7 @@ function Login() {
           <form onSubmit={handleSubmit} className="space-y-12 ng- ng- ng-">
             <div className="space-y-4">
               <div>
-                <label htmlfor="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2 text-sm">
                   Email address
                 </label>
                 <input
@@ -103,17 +103,6 @@ function Login() {
                   Sign in
                 </button>
               </div>
-              <p className="px-6 text-sm text-center text-gray-400">
-                Don't have an account yet?
-                <Link
-                  rel="noopener noreferrer"
-                  to={"/signup"}
-                  className="hover:underline text-black"
-                >
-                  Sign up
-                </Link>
-                .
-              </p>
             </div>
           </form>
         </div>
