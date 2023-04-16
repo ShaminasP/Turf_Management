@@ -10,7 +10,6 @@ const Content = () => {
                 <h1 className="font-bold text-4xl">COLLABORATE WITH US</h1>
                 <p className="mt-5 text-lg text-justify flex-wrap">{text}</p>
             </div>
-            <Features />
         </>
     )
 }

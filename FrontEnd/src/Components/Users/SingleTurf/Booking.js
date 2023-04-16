@@ -1,5 +1,5 @@
 import { loadStripe } from "@stripe/stripe-js";
-
+import { useNavigate } from "react-router-dom";
 import { getTimeSlot } from "./Timeslot";
 import Calendar from "react-calendar";
 import { useSelector } from "react-redux";
@@ -20,14 +20,15 @@ const Booking = ({ ID, openingHour, closingHour, setShowCalender }) => {
     `${process.env.REACT_APP_YOUR_STRIPE_PUBLIC_KEY}`
   );
 
+  const Navigate = useNavigate();
+
   const Time = async (time) => {
+    if (!token) return Navigate("/login");
     const response = await toBookTurf(ID, date, time, token);
-    console.log(response,"created");
     if (response?.status === 200) {
       const stripe = await stripePromise;
       const result = await payementAction(response?.data?._id);
-      console.log(result);
-    
+
       if (result?.status === 200) {
         console.log(result);
         await stripe.redirectToCheckout({ sessionId: result.data.response });

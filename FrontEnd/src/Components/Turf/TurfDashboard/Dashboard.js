@@ -9,7 +9,6 @@ const Dashboard = () => {
   const { token } = useSelector((state) => state.user);
   const [data, setData] = useState([]);
   const [count, setCount] = useState("");
-  console.log(data);
 
   const fetchData = async () => {
     const response = await toGetBookingReport(token);
@@ -26,7 +25,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <CountStatus counts={count}/>
+      <CountStatus counts={count} data={data}/>
       <div className="flex justify-between">
       <Barchart data={data} />
       <LineGraph data={data} />

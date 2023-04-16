@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { turfRegister } from "../../../API/TurfAuth";
 import { Location_Search } from "../../../API/Mapbox";
 import { useSelector } from "react-redux";
@@ -14,6 +15,7 @@ const RegistrationForm = () => {
   };
 
   const { token } = useSelector((state) => state.user);
+  const Navigate = useNavigate();
 
   const [formData, setFormData] = useState(intialState);
   const [location, setLocation] = useState("");
@@ -28,7 +30,6 @@ const RegistrationForm = () => {
     const result = await Location_Search(location);
     setSuggestion(result.map((f) => f.place_name));
   };
-  console.log(error);
   const handleImage = (event) => {
     const img = event.target.files[0];
     setFormData({ ...formData, image: img });
@@ -36,6 +37,9 @@ const RegistrationForm = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!token) {
+      Navigate('/login')
+    }
     const tufrsDetails = await turfRegister(formData, token);
     if (tufrsDetails.status === 400 || tufrsDetails.status === 401)
       return setError(tufrsDetails?.data?.message);
@@ -56,7 +60,7 @@ const RegistrationForm = () => {
     <>
       {modal && <ModalMessage message={modal} close={() => setModal("")} />}
 
-      <div className="flex items-center justify-center p-12 bg-white">
+      <div className="flex items-center justify-center p-12 bg-gray-100">
         <div className="mx-auto w-full max-w-[550px]">
           {error && <AlertMessage message={error} close={() => setError("")} />}
           <form onSubmit={onSubmit}>

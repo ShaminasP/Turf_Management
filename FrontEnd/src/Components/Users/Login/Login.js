@@ -41,15 +41,15 @@ function Login() {
       );
       window.localStorage.setItem("token", data.data.token);
       window.localStorage.setItem("name", data.data.name);
-
       Navigate("/");
     }
     if (data.status === 200 && data?.data?.role === "turfAdmin") {
       const turf = await viewTurfByOwner(data.data.token);
       Dispatch(setTurf(turf?.data?.turf));
       Dispatch(setToken({ token: data?.data?.token }));
+      const turfJson = JSON.stringify(turf?.data?.turf);
       window.localStorage.setItem("token", data.data.token);
-      window.localStorage.setItem("turf", turf?.data?.turf);
+      window.localStorage.setItem("turf", turfJson);
       Navigate("/turf");
     }
     if (data?.status === 401) return setError(data?.data?.message);

@@ -15,6 +15,9 @@ export const turf_register = async (req, res) => {
       .status(400)
       .json({ message: "Turf is already registered with this email" });
 
+  const turfAdmin = req?.user?.id;
+  if (!turfAdmin) return res.status(204).json({ message: "Please login" });
+
   const img = req?.files;
   try {
     const newTurf = new TurfModel({
@@ -143,8 +146,11 @@ export const toGetCounts = async (req, res) => {
     const Turf = await TurfModel.findOne({ turfAdmin });
     if (!Turf) return res.status(400).json({ message: "No turf found" });
     const turf = Turf?._id;
-    const bookingCount = await bookingModel.findOne({turf}).count();
-    res.status(200).json(bookingCount)
+    const bookingCount = await bookingModel
+      .findOne({ turf, payment: "Success" })
+      .count();
+    const userCount = await bookingModel.find({ turf }).distinct("user");
+    res.status(200).json({ bookingCount, userCount: userCount?.length });
   } catch (error) {
     res.status(500).json(error?.response?.data);
   }

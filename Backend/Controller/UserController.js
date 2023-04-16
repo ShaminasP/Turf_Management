@@ -102,7 +102,7 @@ export const toBookTurf = async (req, res) => {
     const turf = await TurfModel.findById(turfID);
     const price = turf?.fee;
     const userId = req.user.id;
-    const bookDate = new Date(date).toLocaleDateString();
+    const bookDate = new Date(date);
     const newBooking = await bookingModel.create({
       user: userId,
       turf: turfID,

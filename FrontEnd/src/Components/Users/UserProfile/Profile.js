@@ -16,6 +16,16 @@ const UserProfile = () => {
   const [edit, setEdit] = useState(false);
   const [showBookings, setShowBookings] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [previousBookings, setPreviousBookings] = useState([]);
+  const [upcomingBookings, setUpcomingBookings] = useState([]);
+
+  let today = new Date();
+  let month = String(today.getMonth() + 1).padStart(2, "0");
+  let day = String(today.getDate()).padStart(2, "0");
+  let year = today.getFullYear();
+  let formattedDate = month + "/" + day + "/" + year;
+  const todayDate = new Date(formattedDate);
+
   const toGetUser = async (token) => {
     const response = await toViewProfile(token);
     if (response.status === 200) {
@@ -26,7 +36,18 @@ const UserProfile = () => {
   const fetchBookings = async (token) => {
     const response = await toGetBookings(token);
     if (response.status === 200) {
-      setBookings(response.data);
+      setBookings(response?.data);
+      const upcomingBooking = response?.data.filter((booking) => {
+        const bookedDate = new Date(booking?.bookDate);
+        return bookedDate > todayDate;
+      });
+      setUpcomingBookings(upcomingBooking);
+
+      const previousBooking = response?.data.filter((booking) => {
+        const bookedDate = new Date(booking?.bookDate);
+        return bookedDate < today;
+      });
+      setPreviousBookings(previousBooking);
       setShowBookings(true);
     }
   };
@@ -140,7 +161,7 @@ const UserProfile = () => {
           </div>
         </fieldset>
       </form>
-      {showBookings && <BookingDetails bookings={bookings} />}
+      {showBookings && <BookingDetails previousbookings={previousBookings} upcomingBooking={upcomingBookings}/>}
     </section>
   );
 };

@@ -133,6 +133,7 @@ export const toGetTheTotalCounts = async (req, res) => {
       TurfModel.find({ turfStatus: true }).count(),
       bookingModel.find({ payment: "Success" }).count(),
     ]);
+    console.log(userCount)
     res.status(200).json({ userCount, turfCount, bookingCount });
   } catch (error) {
     res.status(500).json({ message: error.message });
