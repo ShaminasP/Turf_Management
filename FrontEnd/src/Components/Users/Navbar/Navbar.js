@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { resetToken, setToken } from "../../../Store/userSlice";
 
 const Navbar = () => {
-  const { name } = useSelector((state) => state.user);
-  const { turf } = useSelector((state) => state.user);
-  const [currentUser, setCurrentUser] = useState(null);
+  let Links = [
+    { name: "HOME", link: "/" },
+    { name: "BOOK TURF", link: "/view_turf" },
+    { name: "RGISTER TURF", link: "/turf/register" },
+  ];
+
   const token = localStorage.getItem("token");
   const Name = localStorage.getItem("name");
-  const Turf= localStorage.getItem("turf");
+
   const Dispatch = useDispatch();
 
-  if (Name && token){
+  if (token && Name) {
     Dispatch(
       setToken({
         name: Name,
@@ -22,30 +25,8 @@ const Navbar = () => {
     );
   }
 
- 
- 
-  useEffect(() => {
-    if (turf) {
-      setCurrentUser(turf.turfName);
-    } else if (name) {
-      setCurrentUser(name);
-    } else {
-      setCurrentUser(null);
-    }
-  });
+  useEffect(() => {});
 
-  let Links = [
-    { name: "HOME", link: "/" },
-    { name: "BOOK TURF", link: "/view_turf" },
-    { name: "RGISTER TURF", link: "/turf/register" },
-    { name: "LOGIN", link: "/login" },
-  ];
-
-  let links = [
-    { name: "HOME", link: "/" },
-    { name: "BOOK TURF", link: "/view_turf" },
-    { name: "RGISTER TURF", link: "/turf/register" },
-  ];
   let [open, setOpen] = useState(false);
 
   const handleLogout = () => {
@@ -98,109 +79,52 @@ const Navbar = () => {
               </svg>
             )}
           </div>
-          {currentUser ? (
-            <ul
-              className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
-                open ? "top-[67px] " : "top-[-490px]"
-              }`}
-            >
-              {currentUser && turf ? (
-                <>
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={"/turf"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                    >
-                      DASHBOARD
-                    </Link>
-                  </li>
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={"/turf/bookings"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                    >
-                      BOOKINGS
-                    </Link>
-                  </li>
 
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={"/turf/reports"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                    >
-                      BOOKING REPORT
-                    </Link>
-                  </li>
-
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={"/turf/profile"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                    >
-                      {currentUser}
-                    </Link>
-                  </li>
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <button
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                      onClick={handleLogout}
-                    >
-                      LOG OUT
-                    </button>
-                  </li>
-                </>
-              ) : (
-                <>
-                  {links.map((link) => (
-                    <li
-                      key={link.name}
-                      className="text-sm lg:ml-8 lg:my-0 my-7"
-                    >
-                      <Link
-                        to={link.link}
-                        className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <Link
-                      to={"/profile"}
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                    >
-                      {currentUser}
-                    </Link>
-                  </li>
-                  <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                    <button
-                      className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                      onClick={handleLogout}
-                    >
-                      LOG OUT
-                    </button>
-                  </li>
-                </>
-              )}
-            </ul>
-          ) : (
-            <ul
-              className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
-                open ? "top-[67px] " : "top-[-490px]"
-              }`}
-            >
-              {Links.map((link) => (
-                <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
+          <ul
+            className={`lg:flex lg:items-center lg:pb-0 pb-12 absolute lg:static lg:z-auto z-[-1] left-0 w-full  lg:w-auto lg:pl-0   pl-9  transition-all duration-500 ease-in ${
+              open ? "top-[67px] " : "top-[-490px]"
+            }`}
+          >
+            {Links.map((link) => (
+              <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
+                <Link
+                  to={link.link}
+                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+            {Name ? (
+              <>
+                <li className="text-sm lg:ml-8 lg:my-0 my-7">
                   <Link
-                    to={link.link}
+                    to={"/profile"}
                     className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
                   >
-                    {link.name}
+                    {Name}
                   </Link>
                 </li>
-              ))}
-            </ul>
-          )}
+                <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                  <button
+                    className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                    onClick={handleLogout}
+                  >
+                    LOG OUT
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li className="text-sm lg:ml-8 lg:my-0 my-7">
+                <Link
+                  to={"/login"}
+                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                >
+                  LOGIN
+                </Link>
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     </>

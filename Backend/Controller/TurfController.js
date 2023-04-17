@@ -9,6 +9,10 @@ export const turf_register = async (req, res) => {
   if (!name || !email || !location || !mobile) {
     res.status(401).json({ message: "fields cannot be blank" });
   }
+
+  const img = req?.files;
+  if (img.length===0) return res.status(400).json({ message:"please add images" })
+
   const registered = await TurfModel.findOne({ email: email });
   if (registered)
     res
@@ -18,7 +22,7 @@ export const turf_register = async (req, res) => {
   const turfAdmin = req?.user?.id;
   if (!turfAdmin) return res.status(204).json({ message: "Please login" });
 
-  const img = req?.files;
+
   try {
     const newTurf = new TurfModel({
       turfName: name,

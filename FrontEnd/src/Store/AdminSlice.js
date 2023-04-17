@@ -11,7 +11,7 @@ const adminSlice = createSlice({
       state.token = action.payload;
     },
     resetAdmin: (state) => {
-      state.name = null;
+      state.token = null;
     },
   },
 });

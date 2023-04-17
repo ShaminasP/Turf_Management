@@ -22,7 +22,7 @@ const BookingDetails = ({ previousbookings, upcomingBooking }) => {
                 <tr key={index}>
                   <th>{booking?._id}</th>
                   <td>{booking?.turf?.turfName}</td>
-                  <td>{booking?.bookDate}</td>
+                  <td>{new Date(booking?.bookDate).toLocaleDateString()}</td>
                   <td>{booking?.time}</td>
                   <td>
                     {" "}
@@ -45,7 +45,7 @@ const BookingDetails = ({ previousbookings, upcomingBooking }) => {
                 <tr key={index}>
                   <th>{booking?._id}</th>
                   <td>{booking?.turf?.turfName}</td>
-                  <td>{booking?.bookDate}</td>
+                  <td>{new Date(booking?.bookDate).toLocaleDateString()}</td>
                   <td>{booking?.time}</td>
                   <td>
                     {" "}

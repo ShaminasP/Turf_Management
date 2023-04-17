@@ -30,7 +30,6 @@ const Booking = ({ ID, openingHour, closingHour, setShowCalender }) => {
       const result = await payementAction(response?.data?._id);
 
       if (result?.status === 200) {
-        console.log(result);
         await stripe.redirectToCheckout({ sessionId: result.data.response });
       }
     }

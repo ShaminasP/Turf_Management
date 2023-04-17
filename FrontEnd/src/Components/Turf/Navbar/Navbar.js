@@ -1,38 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setAdmin } from "../../../Store/AdminSlice";
-import { resetAdmin } from "../../../Store/AdminSlice";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { resetTurfAdmin, setTurfAdmin } from "../../../Store/TurfSlice";
 
 const Navbar = () => {
+  const TurfName = localStorage.getItem("turfName");
+
   const Dispatch = useDispatch();
 
-  const { token } = useSelector((state) => state.admin);
-  const adminToken = window.localStorage.getItem("adminToken");
-  if (adminToken) {
-    Dispatch(setAdmin(adminToken));
-  }
-  let Links = [
-    { name: "DASHBOARD", link: "/admin" },
-    { name: "REQUESTED TURFS", link: "/admin/requested" },
-    { name: "TURFS", link: "/admin/turfs" },
-    { name: "USERS", link: "/admin/users" },
-    { name: "SALES REPORT", link: "/admin/salesreports" },
-  ];
-  const Navigate = useNavigate();
-
-  const handleLogout = () => {
-    Dispatch(resetAdmin());
-    window.localStorage.removeItem("adminToken");
-    Navigate("/admin/login");
-  };
+  useEffect(() => {});
 
   let [open, setOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("turfAdminToken");
+    localStorage.removeItem("turfName");
+    Dispatch(resetTurfAdmin());
+    setOpen(false);
+  };
 
   return (
     <>
       {" "}
-      <div className="shadow-lg w-full fixed z-20 top-0 left-0">
+      <div className="z-20 shadow-lg w-full fixed top-0 left-0">
         <div className="lg:flex items-center justify-between bg-red-700 py-4 lg:px-10 px-7">
           <div
             className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] 
@@ -78,35 +69,48 @@ const Navbar = () => {
               open ? "top-[67px] " : "top-[-490px]"
             }`}
           >
-            {Links.map((link) => (
-              <li key={link.name} className="text-sm lg:ml-8 lg:my-0 my-7">
-                <Link
-                  to={link.link}
-                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-            {token ? (
-              <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                <button
-                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                  onClick={handleLogout}
-                >
-                  LOG OUT
-                </button>
-              </li>
-            ) : (
-              <li className="text-sm lg:ml-8 lg:my-0 my-7">
-                <Link
-                  to={"/admin/login"}
-                  className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
-                >
-                  LOGIN
-                </Link>
-              </li>
-            )}
+            <li className="text-sm lg:ml-8 lg:my-0 my-7">
+              <Link
+                to={"/turf"}
+                className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+              >
+                DASHBOARD
+              </Link>
+            </li>
+            <li className="text-sm lg:ml-8 lg:my-0 my-7">
+              <Link
+                to={"/turf/bookings"}
+                className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+              >
+                BOOKINGS
+              </Link>
+            </li>
+
+            <li className="text-sm lg:ml-8 lg:my-0 my-7">
+              <Link
+                to={"/turf/reports"}
+                className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+              >
+                BOOKING REPORT
+              </Link>
+            </li>
+
+            <li className="text-sm lg:ml-8 lg:my-0 my-7">
+              <Link
+                to={"/turf/profile"}
+                className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+              >
+                {TurfName}
+              </Link>
+            </li>
+            <li className="text-sm lg:ml-8 lg:my-0 my-7">
+              <button
+                className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
+                onClick={handleLogout}
+              >
+                LOG OUT
+              </button>
+            </li>
           </ul>
         </div>
       </div>

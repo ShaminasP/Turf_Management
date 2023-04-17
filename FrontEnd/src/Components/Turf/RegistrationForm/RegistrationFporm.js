@@ -4,8 +4,7 @@ import { turfRegister } from "../../../API/TurfAuth";
 import { Location_Search } from "../../../API/Mapbox";
 import { useSelector } from "react-redux";
 import AlertMessage from "../../AlertMessage/AlertMessage";
-import ModalMessage from "../../Modal/Modal.js";
-const RegistrationForm = () => {
+const RegistrationForm = ({ div }) => {
   const intialState = {
     name: "",
     email: "",
@@ -21,7 +20,6 @@ const RegistrationForm = () => {
   const [location, setLocation] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState("");
-  const [modal, setModal] = useState("");
   const inputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -38,13 +36,14 @@ const RegistrationForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!token) {
-      Navigate('/login')
+      Navigate("/login");
     }
     const tufrsDetails = await turfRegister(formData, token);
     if (tufrsDetails.status === 400 || tufrsDetails.status === 401)
       return setError(tufrsDetails?.data?.message);
-    if (tufrsDetails.status === 200)
-      return setModal(tufrsDetails?.data?.message);
+    if (tufrsDetails.status === 200) {
+      Navigate("/turf/completed");
+    }
   };
 
   const handlePlace = (suggestion) => {
@@ -58,9 +57,7 @@ const RegistrationForm = () => {
 
   return (
     <>
-      {modal && <ModalMessage message={modal} close={() => setModal("")} />}
-
-      <div className="flex items-center justify-center p-12 bg-gray-100">
+      <div ref={div} className="flex items-center justify-center p-12 bg-gray-100">
         <div className="mx-auto w-full max-w-[550px]">
           {error && <AlertMessage message={error} close={() => setError("")} />}
           <form onSubmit={onSubmit}>
@@ -69,7 +66,7 @@ const RegistrationForm = () => {
                 htmlFor="name"
                 className="mb-3 block text-base font-medium text-[#07074D]"
               >
-                Name
+               Turf Name 
               </label>
               <input
                 type="text"
@@ -86,7 +83,7 @@ const RegistrationForm = () => {
                 htmlFor="email"
                 className="mb-3 block text-base font-medium text-[#4d0731]"
               >
-                Email Address
+               Turf Email Address 
               </label>
               <input
                 type="email"
@@ -103,7 +100,7 @@ const RegistrationForm = () => {
                 htmlFor="contactNumber"
                 className="mb-3 block text-base font-medium text-[#07074D]"
               >
-                Contact Number
+               Turf Contact Number 
               </label>
               <input
                 type="text"
@@ -120,7 +117,7 @@ const RegistrationForm = () => {
                 htmlFor="place"
                 className="mb-3 block text-base font-medium text-[#07074D]"
               >
-                Location
+               Turf Location
               </label>
               <input
                 type="text"
@@ -152,7 +149,7 @@ const RegistrationForm = () => {
                 htmlFor="Password"
                 className="mb-3 block text-base font-medium text-[#07074D]"
               >
-                Image
+               Turf Images
               </label>
               <input
                 type="file"

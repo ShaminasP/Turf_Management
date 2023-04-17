@@ -4,7 +4,6 @@ import Home from "../../Pages/User/Home";
 import LoginPage from "../../Pages/User/LoginPage";
 import SignupPage from "../../Pages/User/SignupPage";
 import TurfsPage from "../../Pages/User/TurfsPage";
-import Booking from "../../Pages/User/Booking";
 import ProfilePage from "../../Pages/User/Profile";
 import PaymentSuccessPage from "../../Pages/User/PaymentSuccessPage";
 import { useSelector } from "react-redux";

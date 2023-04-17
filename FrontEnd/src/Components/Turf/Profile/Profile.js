@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { toUpdateTufDetails, viewTurfByOwner } from "../../../API/TurfAuth";
 import Carousel from "./Carousal";
 const TurfPorfile = () => {
-  const { token } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.turf);
   console.log(token);
 
   const [data, setData] = useState({});

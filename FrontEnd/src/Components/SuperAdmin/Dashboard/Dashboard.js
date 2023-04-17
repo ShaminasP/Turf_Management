@@ -9,7 +9,7 @@ const Dashboard = () => {
   const { token } = useSelector((state) => state.admin);
   const [data, setData] = useState([]);
   const [counts, setCounts] = useState([]);
-  fetchData = async () => {
+  const fetchData = async () => {
     const response = await getCounts(token);
     const result = await getSalesReport(token);
     if (result.status === 200 && response.status === 200) {
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <CountStatus counts={counts}/>
+      <CountStatus counts={counts} />
       <div className="flex justify-between ">
         <Barchart data={data} />
         <LineGraph data={data} />

@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginForm } from "../../../API/UserAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken, setTurf } from "../../../Store/userSlice";
+import { setToken } from "../../../Store/userSlice";
 import AlertMessage from "../../AlertMessage/AlertMessage";
 import { FormValidate } from "../../../Helpers/Helpers";
 import { viewTurfByOwner } from "../../../API/TurfAuth";
+import { setTurfAdmin } from "../../../Store/TurfSlice";
 
 function Login() {
   const Navigate = useNavigate();
@@ -32,6 +33,7 @@ function Login() {
     e.preventDefault();
     if (!validateForm()) return;
     const data = await LoginForm(formData);
+    console.log(data);
     if (data.status === 200 && data?.data?.role === "User") {
       Dispatch(
         setToken({
@@ -45,11 +47,14 @@ function Login() {
     }
     if (data.status === 200 && data?.data?.role === "turfAdmin") {
       const turf = await viewTurfByOwner(data.data.token);
-      Dispatch(setTurf(turf?.data?.turf));
-      Dispatch(setToken({ token: data?.data?.token }));
-      const turfJson = JSON.stringify(turf?.data?.turf);
-      window.localStorage.setItem("token", data.data.token);
-      window.localStorage.setItem("turf", turfJson);
+      Dispatch(
+        setTurfAdmin({
+          name: turf?.data?.turf?.turfName,
+          token: data?.data?.token,
+        })
+      );
+      window.localStorage.setItem("turfAdminToken", data.data.token);
+      window.localStorage.setItem("turfName", turf?.data?.turf?.turfName);
       Navigate("/turf");
     }
     if (data?.status === 401) return setError(data?.data?.message);

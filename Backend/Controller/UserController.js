@@ -85,10 +85,15 @@ export const toGetTurfByLocation = async (req, res) => {
 
 export const togetBookingslots = async (req, res) => {
   const ID = req?.query?.ID;
+  console.log(ID, "ID");
   let date = req?.query?.date;
-  date = new Date(date).toLocaleDateString();
+  const bookDate = new Date(date);
+  bookDate.setHours(0);
+  bookDate.setMinutes(0);
+  bookDate.setSeconds(0);
+  bookDate.setMilliseconds(0);
   try {
-    const Booking = await BookingModel.find({ turf: ID, bookDate: date });
+    const Booking = await BookingModel.find({ turf: ID, bookDate });
     return res.status(200).json(Booking);
   } catch (error) {
     console.log(error);
@@ -103,6 +108,10 @@ export const toBookTurf = async (req, res) => {
     const price = turf?.fee;
     const userId = req.user.id;
     const bookDate = new Date(date);
+    bookDate.setHours(0);
+    bookDate.setMinutes(0);
+    bookDate.setSeconds(0);
+    bookDate.setMilliseconds(0);
     const newBooking = await bookingModel.create({
       user: userId,
       turf: turfID,
@@ -125,7 +134,6 @@ export const toProceedPayment = async (req, res) => {
       .findById(bookingId)
       .populate("user")
       .populate("turf");
-
 
     const response = await paymentStripe(
       result?.turf.fee,

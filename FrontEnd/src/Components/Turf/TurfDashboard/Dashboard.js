@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import CountStatus from "./Counts";
 
 const Dashboard = () => {
-  const { token } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.turf);
   const [data, setData] = useState([]);
   const [count, setCount] = useState("");
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const BookingReport = () => {
-  const { token } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.turf);
   const [reports, setReports] = useState([]);
   const fetchTurfReport = async (token) => {
     const response = await toGetBookingReport(token);

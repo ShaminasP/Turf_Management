@@ -1,6 +1,5 @@
 const CountStatus = ({ counts, data }) => {
   const totalPriceSum = data.reduce((acc, curr) => acc + curr.totalPrice, 0);
-  console.log(totalPriceSum);
   return (
     <section className="p-8 my-6 bg-gray-100 text-gray-800 mt-16">
       <div className="container flex justify-evenly">

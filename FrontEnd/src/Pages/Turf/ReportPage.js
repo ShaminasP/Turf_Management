@@ -1,5 +1,5 @@
 import BookingReport from "../../Components/Turf/Report/BookingReport";
-import Navbar from "../../Components/Users/Navbar/Navbar";
+import Navbar from "../../Components/Turf/Navbar/Navbar";
 
 const ReportPage = () => {
   return <>

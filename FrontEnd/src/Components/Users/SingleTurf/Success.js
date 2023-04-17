@@ -28,7 +28,6 @@ const SuccessPage = () => {
                     <p>Booked Date: <span className="font-bold">{details.bookDate}</span></p>
                     <p>Booked Time: <span className="font-bold">{details.time}</span></p>
                 </div>
-                {/* <p className="text-lg text-gray-800 mb-4 text-center">A receipt has been sent to <span className="font-bold">{details?.user?.email}</span>.</p> */}
                 <Link to={'/'}>   <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg block mx-auto">Go Back to Home</button></Link>
             </div>
         </div>

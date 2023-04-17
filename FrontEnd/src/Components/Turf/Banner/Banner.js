@@ -1,6 +1,6 @@
 import img from '../../../assets/partnerwithusBg.jpg';
 
-const Banner = () => {
+const Banner = ({div}) => {
   return (
     <>
       <div
@@ -19,9 +19,9 @@ const Banner = () => {
             </h1>
             <div className="w-full flex xs:pl-0 justify-evenly mt-3">
               <button
-                // onClick={() => {
-                //   div.current.scrollIntoView({ behavior: "smooth" });
-                // }}
+                onClick={() => {
+                  div.current.scrollIntoView({ behavior: "smooth" });
+                }}
                 className="text-black bg-white mb-2 border-[1px]   border-inherit font-[Poppins] py-2 px-6 rounded-xl  hover:bg-transparent hover:text-white duration-500"
               >
                 {" "}
