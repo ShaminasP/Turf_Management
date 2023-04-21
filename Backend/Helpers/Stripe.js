@@ -5,7 +5,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const domain = process.env.Client_Side_URL;
 export const paymentStripe = async (fee, turfName, email, id) => {
-  console.log(fee, turfName, email, id);
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     line_items: [

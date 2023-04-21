@@ -85,7 +85,7 @@ function Login() {
                   onChange={handleChange}
                   id="email"
                   placeholder="leroy@jenkins.com"
-                  className="w-full px-3 py-2 border rounded-md  border-black  text-black"
+                  className="w-full px-3 py-2 border rounded-md  border-black dark:text-white  text-black"
                 />
                 {dataError.email && (
                   <p className="text-red-500 mt-1 text-xs italic">

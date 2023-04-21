@@ -33,9 +33,13 @@ export const getRequestedTurf = async (data) => {
 
 export const changeStatus = async (ID, token) => {
   try {
-    const response = await Axiosuser.patch("/admin/status", {
-      ID,
-    });
+    const response = await Axiosuser.patch(
+      "/admin/status",
+      {
+        ID,
+      },
+      { headers: { Authorization: token } }
+    );
     return response;
   } catch (error) {
     return error.response;

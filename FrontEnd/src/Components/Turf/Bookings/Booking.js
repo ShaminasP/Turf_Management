@@ -22,7 +22,7 @@ const Bookings = () => {
       setBooking(response?.data);
       const upcomingBooking = response?.data.filter((booking) => {
         const bookedDate = new Date(booking?.bookDate);
-        return  bookedDate > todayDate;
+        return  bookedDate => todayDate;
       });
       setUpcomingBookings(upcomingBooking);
 

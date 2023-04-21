@@ -1,17 +1,5 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { resetToken } from "../../../Store/userSlice";
-
-const RegistrationCompleted = () => {
-  const Navigate = useNavigate();
-  const Dispatch = useDispatch();
-
-  const onComplete = () => {
-    Dispatch(resetToken());
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("name");
-    Navigate("/login");
-  };
+import { Link } from "react-router-dom";
+const RegistrationPending = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-2xl">
@@ -37,20 +25,22 @@ const RegistrationCompleted = () => {
           </p>
 
           <p>
-            You can Login to your turf's{" "}
-            <span className="font-bold">Dashboard</span> using your{" "}
-            <span className="font-bold">Email and Password</span>
+            You can
+            <span className="font-bold">View</span>
+            and
+            <span className="font-bold">Update</span> your
+            <span className="font-bold">Turf</span>
+            <span className="font-bold">Details</span>
           </p>
         </div>{" "}
-        <button
-          onClick={onComplete}
+        <Link
+          to={"/turf/profile"}
           className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-lg block mx-auto"
         >
-          Login to your TURF
-        </button>
+          TURF DETAILS
+        </Link>
       </div>
     </div>
   );
 };
-
-export default RegistrationCompleted;
+export default RegistrationPending;

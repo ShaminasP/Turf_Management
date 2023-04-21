@@ -39,13 +39,13 @@ const UserProfile = () => {
       setBookings(response?.data);
       const upcomingBooking = response?.data.filter((booking) => {
         const bookedDate = new Date(booking?.bookDate);
-        return bookedDate > todayDate;
+        return bookedDate => todayDate;
       });
       setUpcomingBookings(upcomingBooking);
 
       const previousBooking = response?.data.filter((booking) => {
         const bookedDate = new Date(booking?.bookDate);
-        return bookedDate < today;
+        return bookedDate < todayDate;
       });
       setPreviousBookings(previousBooking);
       setShowBookings(true);

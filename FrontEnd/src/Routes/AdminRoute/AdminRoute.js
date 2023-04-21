@@ -6,6 +6,7 @@ import TurfList from "../../Pages/Admin/TurfList";
 import UserList from "../../Pages/Admin/UserList";
 import SalesReportPage from "../../Pages/Admin/SalesReport";
 import RequestedTurf from "../../Pages/Admin/RequestedTurf";
+import Error from "../../Components/Error/Error";
 
 const AdminRoute = () => {
   const { token } = useSelector((state) => state.admin);
@@ -25,6 +26,7 @@ const AdminRoute = () => {
           path="/requested"
           element={token ? <RequestedTurf /> : <LoginPage />}
         />
+        <Route path="*" element={<Error link={"/admin"} />} />
       </Routes>
     </>
   );

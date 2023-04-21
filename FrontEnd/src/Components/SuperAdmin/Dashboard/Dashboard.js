@@ -9,6 +9,9 @@ const Dashboard = () => {
   const { token } = useSelector((state) => state.admin);
   const [data, setData] = useState([]);
   const [counts, setCounts] = useState([]);
+
+  console.log(counts);
+
   const fetchData = async () => {
     const response = await getCounts(token);
     const result = await getSalesReport(token);

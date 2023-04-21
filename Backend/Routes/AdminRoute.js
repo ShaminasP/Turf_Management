@@ -17,7 +17,7 @@ router.post("/", adminLogin);
 
 router.get("/", authVerify, getRequestedTurf);
 
-router.patch("/status",  toAcceptTurfRequest);
+router.patch("/status",authVerify,  toAcceptTurfRequest);
 
 router.delete("/status", authVerify, toCancelTurfRequest);
 

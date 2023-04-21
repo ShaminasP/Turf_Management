@@ -48,16 +48,8 @@ const turfSchema = new mongoose.Schema({
     type: Number,
     // required: true,
   },
-  events: {
-    eventName: {
-      type: String,
-    },
-    eventStatus: {
-      type: Boolean,
-    },
-  },
   balance: {
-    type: String,
+    type: Number,
   },
 });
 

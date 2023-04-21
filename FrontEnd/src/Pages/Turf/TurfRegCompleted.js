@@ -1,6 +1,6 @@
 import Navbar from "../../Components/Users/Navbar/Navbar";
 import RegistrationCompleted from "../../Components/Turf/RegistrationCompleted.js/RegistrationCompleted";
-const RegistrationCompleted = () => {
+const RegistrationCompletedPage = () => {
   return (
     <>
       <Navbar />
@@ -8,4 +8,4 @@ const RegistrationCompleted = () => {
     </>
   );
 };
-export default RegistrationCompleted;
+export default RegistrationCompletedPage;

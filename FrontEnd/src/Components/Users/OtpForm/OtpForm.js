@@ -49,7 +49,7 @@ function OtpForm({ formData }) {
           <div>
             <button
               type="submit"
-              className="bg-red-500 text-white font-medium py-2 px-5 ml-5 rounded hover:bg-white"
+              className="bg-red-500 text-white font-medium py-2 px-5 ml-5 rounded"
             >
               Submit
             </button>

@@ -13,15 +13,14 @@ const Table = () => {
 
   const acceptRequest = async (id) => {
     const response = await changeStatus(id, token);
-    console.log(id);
-    console.log(token);
-    // if (response.status === 200) {
-    //   setTurfs((prevTurfs) =>
-    //     prevTurfs.map((turf) =>
-    //       turf._id === id ? { ...turf, turfStatus: response.data } : turf
-    //     )
-    //   );
-    // }
+
+    if (response.status === 200) {
+      setTurfs((prevTurfs) =>
+        prevTurfs.map((turf) =>
+          turf._id === id ? { ...turf, turfStatus: response.data } : turf
+        )
+      );
+    }
   };
 
   const cancelTurfRequest = async (id) => {

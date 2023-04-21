@@ -17,7 +17,7 @@ const Navbar = () => {
     { name: "REQUESTED TURFS", link: "/admin/requested" },
     { name: "TURFS", link: "/admin/turfs" },
     { name: "USERS", link: "/admin/users" },
-    { name: "SALES REPORT", link: "/admin/salesreports" },
+    { name: "BOOKING REPORT", link: "/admin/salesreports" },
   ];
   const Navigate = useNavigate();
 

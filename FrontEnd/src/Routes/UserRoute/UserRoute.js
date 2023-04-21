@@ -6,6 +6,7 @@ import SignupPage from "../../Pages/User/SignupPage";
 import TurfsPage from "../../Pages/User/TurfsPage";
 import ProfilePage from "../../Pages/User/Profile";
 import PaymentSuccessPage from "../../Pages/User/PaymentSuccessPage";
+import Error from "../../Components/Error/Error";
 import { useSelector } from "react-redux";
 const Admin = () => {
   const { token } = useSelector((state) => state.user);
@@ -22,6 +23,7 @@ const Admin = () => {
           path="/profile"
           element={token ? <ProfilePage /> : <LoginPage />}
         />
+        <Route path="*" element={<Error link={"/"} />} />
       </Routes>
     </>
   );

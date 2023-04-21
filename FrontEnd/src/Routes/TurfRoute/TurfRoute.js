@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import RegistrationCompleted from "../../Pages/Turf/TurfRegCompleted.js";
 import { useDispatch, useSelector } from "react-redux";
 import { resetTurfAdmin, setTurfAdmin } from "../../Store/TurfSlice";
+import Error from "../../Components/Error/Error";
 
 const User = () => {
   const TurfName = localStorage.getItem("turfName");
@@ -48,6 +49,7 @@ const User = () => {
           path="/completed"
           element={token ? <RegistrationCompleted /> : <LoginPage />}
         />
+        <Route path="*" element={<Error link={"/turf"}/> }/>
       </Routes>
     </>
   );

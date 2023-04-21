@@ -100,7 +100,7 @@ const Navbar = () => {
                 to={"/turf/profile"}
                 className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
               >
-                {TurfName}
+                {TurfName.toUpperCase()}
               </Link>
             </li>
             <li className="text-sm lg:ml-8 lg:my-0 my-7">

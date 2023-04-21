@@ -102,7 +102,7 @@ const Navbar = () => {
                     to={"/profile"}
                     className="text-gray-800 lg:text-white hover:text-gray-400 duration-500"
                   >
-                    {Name}
+                    {Name.toUpperCase()}
                   </Link>
                 </li>
                 <li className="text-sm lg:ml-8 lg:my-0 my-7">

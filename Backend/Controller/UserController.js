@@ -119,7 +119,6 @@ export const toBookTurf = async (req, res) => {
       time,
       price,
     });
-
     res.status(200).json(newBooking);
   } catch (error) {
     console.log(error);
@@ -155,9 +154,15 @@ export const bookingSuccess = async (req, res) => {
       .findById(ID)
       .populate("user")
       .populate("turf");
+
     if (result) {
       await bookingModel.findByIdAndUpdate(ID, { payment: "Success" });
       res.status(200).json(result);
+      const turfID = result?.turf?._id;
+      const balance = result?.turf?.fee - (result?.turf?.fee * 10) / 100;
+      const turfBalace = await TurfModel.findByIdAndUpdate(turfID, {
+        $inc: { balance },
+      });
     }
   } catch (error) {
     console.log(error);
@@ -180,14 +185,11 @@ export const toViewProfile = async (req, res) => {
 export const toUpdateProfile = async (req, res) => {
   try {
     const ID = req.user.id;
-    console.log(ID);
     const { name, email, mobile } = req?.body?.data;
     if (!name || !email || !mobile)
       return res.status(401).json({ message: "field not found" });
     const User = await UserModel.findByIdAndUpdate(ID, { name, email, mobile });
-    console.log(User);
     if (!User) return res.status(401).json({ message: "User not found" });
-    console.log("NILL");
     res.status(200).json(User);
   } catch (error) {
     console.log(error);
@@ -200,10 +202,6 @@ export const toViewBookingDetails = async (req, res) => {
     const date = new Date();
     const user = req.user.id;
     const bookings = await bookingModel.find({ user }).populate("turf");
-    const UpcomingBookings = await bookingModel
-      .find({ user, bookDate: { $gt: date } })
-      .populate("turf");
-    console.log(UpcomingBookings);
     res.status(200).json(bookings);
   } catch (error) {
     console.log(error);

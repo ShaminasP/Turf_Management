@@ -128,13 +128,17 @@ export const toViewReports = async (req, res) => {
 
 export const toGetTheTotalCounts = async (req, res) => {
   try {
-    const [userCount, turfCount, bookingCount] = await Promise.all([
+    const [userCount, turfCount, totalProfit] = await Promise.all([
       UserModel.find().count(),
       TurfModel.find({ turfStatus: true }).count(),
-      bookingModel.find({ payment: "Success" }).count(),
+      bookingModel.aggregate([
+        { $match: { payment: "Success" } },
+        { $group: { _id: null, totalPrice: { $sum: "$price" } } },
+      ]),
     ]);
-    console.log(userCount)
-    res.status(200).json({ userCount, turfCount, bookingCount });
+    res
+      .status(200)
+      .json({ userCount, turfCount, totalProfit: totalProfit[0]?.totalPrice });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

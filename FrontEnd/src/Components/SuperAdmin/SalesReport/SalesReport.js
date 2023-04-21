@@ -21,19 +21,20 @@ const SalesReport = () => {
         <thead>
           <tr className="text-center">
             <th>Turf</th>
-            <th>Total Amount</th>
             <th>Total Bookings</th>
+            <th>Total Amount</th>
+            <th>Profit</th>
           </tr>
         </thead>
         <tbody>
-          {reports.map((report, index) => 
+          {reports.map((report, index) => (
             <tr className="text-center" key={index}>
-             
               <th>{report.name[0]}</th>
-              <td>{report.totalPrice}</td>
               <td>{report.count}</td>
+              <td>{report.totalPrice}</td>
+              <td>{(report.totalPrice * 10) / 100}</td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>
